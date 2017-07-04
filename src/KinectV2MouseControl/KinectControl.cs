@@ -190,6 +190,10 @@ namespace KinectV2MouseControl
 
                     if (handRight.Z - spineBase.Z < -0.01f) // if right hand lift forward
                     {
+                        if(body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Lasso)
+                        {
+                            System.Environment.Exit(0);
+                        }
                         /* hand x calculated by this. we don't use shoulder right as a reference cause the shoulder right
                          * is usually behind the lift right hand, and the position would be inferred and unstable.
                          * because the spine base is on the left of right hand, we plus 0.05f to make it closer to the right. */

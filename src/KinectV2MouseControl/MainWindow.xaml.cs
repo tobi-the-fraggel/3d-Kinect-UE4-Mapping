@@ -146,6 +146,7 @@ namespace KinectV2MouseControl
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             kinectCtrl.Close();
+            System.Environment.Exit(0);
         }
 
         public void rdiGripGestureChange()
