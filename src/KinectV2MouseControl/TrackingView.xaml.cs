@@ -15,6 +15,7 @@
     /// </summary>
     public partial class TrackingView : Window, INotifyPropertyChanged
     {
+
         /// <summary>
         /// Radius of drawn hand circles
         /// </summary>
@@ -123,10 +124,10 @@
         /// <summary>
         /// Initializes a new instance of the TrackingView class.
         /// </summary>
-        public TrackingView()
+        public TrackingView(KinectSensor kinectSensor)
         {
             // one sensor is currently supported
-            this.kinectSensor = KinectSensor.GetDefault();
+            this.kinectSensor = kinectSensor;
 
             // get the coordinate mapper
             this.coordinateMapper = this.kinectSensor.CoordinateMapper;

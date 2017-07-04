@@ -11,7 +11,7 @@ namespace KinectV2MouseControl
         /// <summary>
         /// Active Kinect sensor
         /// </summary>
-        KinectSensor sensor;
+        public KinectSensor sensor;
         /// <summary>
         /// Reader for body frames
         /// </summary>

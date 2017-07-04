@@ -17,7 +17,7 @@ namespace KinectV2MouseControl
         public MainWindow()
         {
             InitializeComponent();
-            TrackingView view1 = new TrackingView();
+            TrackingView view1 = new TrackingView(kinectCtrl.sensor);
             view1.Show();
         }
         
