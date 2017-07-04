@@ -64,13 +64,29 @@ namespace KinectV2MouseControl
         public const bool USE_GRIP_GESTURE = true;
         public const float CURSOR_SMOOTHING = 0.2f;
 
+        /// <summary>
+        /// Determine if we have tracked the hand and used it to move the cursor,
+        /// If false, meaning the user may not lift their hands, we don't get the last hand position and some actions like pause-to-click won't be executed.
+        /// </summary>
+        bool alreadyTrackedPos = false;
+
+        /// <summary>
+        /// for storing the time passed for pause-to-click
+        /// </summary>
+        float timeCount = 0;
+        /// <summary>
+        /// For storing last cursor position
+        /// </summary>
         Point lastCurPos = new Point(0, 0);
 
         /// <summary>
         /// If true, user did a left hand Grip gesture
         /// </summary>
         bool wasLeftGrip = false;
-
+        /// <summary>
+        /// If true, user did a right hand Grip gesture
+        /// </summary>
+        bool wasRightGrip = false;
 
         public KinectControl()
         {
@@ -84,7 +100,10 @@ namespace KinectV2MouseControl
             screenWidth = (int)SystemParameters.PrimaryScreenWidth;
             screenHeight = (int)SystemParameters.PrimaryScreenHeight;
 
-
+            // set up timer, execute every 0.1s
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 100); 
+　　　　    timer.Tick += new EventHandler(Timer_Tick);
+　　　　    timer.Start();
 
             // open the sensor
             sensor.Open();
@@ -92,6 +111,40 @@ namespace KinectV2MouseControl
 
 
         
+        /// <summary>
+        /// Pause to click timer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Timer_Tick(object sender, EventArgs e)
+        {
+            if (!doClick || useGripGesture) return;
+
+            if (!alreadyTrackedPos) {
+                timeCount = 0;
+                return;
+            }
+            
+            Point curPos = MouseControl.GetCursorPosition();
+
+            if ((lastCurPos - curPos).Length < pauseThresold)
+            {
+                if ((timeCount += 0.1f) > timeRequired)
+                {
+                    //MouseControl.MouseLeftDown();
+                    //MouseControl.MouseLeftUp();
+                    MouseControl.DoMouseClick();
+                    timeCount = 0;
+                }
+            }
+            else
+            {
+                timeCount = 0;
+            }
+
+            lastCurPos = curPos;
+        }
+
         /// <summary>
         /// Read body frames
         /// </summary>
@@ -118,7 +171,11 @@ namespace KinectV2MouseControl
                 }
             }
 
-
+            if (!dataReceived) 
+            {
+                alreadyTrackedPos = false;
+                return;
+            }
 
             foreach (Body body in this.bodies)
             {
@@ -151,6 +208,7 @@ namespace KinectV2MouseControl
                         // set cursor position
                         MouseControl.SetCursorPos((int)(curPos.X + (x  * mouseSensitivity * screenWidth - curPos.X) * smoothing), (int)(curPos.Y + ((y + 0.25f) * mouseSensitivity * screenHeight - curPos.Y) * smoothing));
                         
+                        alreadyTrackedPos = true;
 
                         // Grip gesture
                         if (doClick && useGripGesture)
@@ -176,7 +234,8 @@ namespace KinectV2MouseControl
                     else
                     {
                         wasLeftGrip = true;
-
+                        wasRightGrip = true;
+                        alreadyTrackedPos = false;
                     }
 
                     // get first tracked body only
