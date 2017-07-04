@@ -33,7 +33,17 @@ namespace KinectV2MouseControl
             }
         }
 
+        private void PauseToClickTime_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (PauseToClickTime.IsLoaded)
+            {
+                kinectCtrl.timeRequired = (float)PauseToClickTime.Value;
+                txtTimeRequired.Text = kinectCtrl.timeRequired.ToString("f2");
 
+                Properties.Settings.Default.PauseToClickTime = kinectCtrl.timeRequired;
+                Properties.Settings.Default.Save();
+            }
+        }
 
         private void txtMouseSensitivity_KeyDown(object sender, KeyEventArgs e)
         {
@@ -48,24 +58,71 @@ namespace KinectV2MouseControl
             }
         }
 
+        private void txtTimeRequired_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                float v;
+                if (float.TryParse(txtTimeRequired.Text, out v))
+                {
+                    PauseToClickTime.Value = v;
+                    kinectCtrl.timeRequired = (float)PauseToClickTime.Value;
+                }
+            }
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             MouseSensitivity.Value = Properties.Settings.Default.MouseSensitivity;
+            PauseToClickTime.Value = Properties.Settings.Default.PauseToClickTime;
+            PauseThresold.Value = Properties.Settings.Default.PauseThresold;
             chkNoClick.IsChecked = !Properties.Settings.Default.DoClick;
             CursorSmoothing.Value = Properties.Settings.Default.CursorSmoothing;
-
+            if (Properties.Settings.Default.GripGesture)
+            {
+                rdiGrip.IsChecked = true;
+            }
+            else
+            {
+                rdiPause.IsChecked = true;
+            }
 
         }
 
+        private void PauseThresold_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (PauseThresold.IsLoaded)
+            {
+                kinectCtrl.pauseThresold = (float)PauseThresold.Value;
+                txtPauseThresold.Text = kinectCtrl.pauseThresold.ToString("f2");
 
+                Properties.Settings.Default.PauseThresold = kinectCtrl.pauseThresold;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void txtPauseThresold_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                float v;
+                if (float.TryParse(txtPauseThresold.Text, out v))
+                {
+                    PauseThresold.Value = v;
+                    kinectCtrl.timeRequired = (float)PauseThresold.Value;
+                }
+            }
+        }
 
         private void btnDefault_Click(object sender, RoutedEventArgs e)
         {
             MouseSensitivity.Value = KinectControl.MOUSE_SENSITIVITY;
+            PauseToClickTime.Value = KinectControl.TIME_REQUIRED;
+            PauseThresold.Value = KinectControl.PAUSE_THRESOLD;
             CursorSmoothing.Value = KinectControl.CURSOR_SMOOTHING;
 
             chkNoClick.IsChecked = !KinectControl.DO_CLICK;
+            rdiGrip.IsChecked = KinectControl.USE_GRIP_GESTURE;
         }
 
         private void chkNoClick_Checked(object sender, RoutedEventArgs e)
@@ -90,6 +147,23 @@ namespace KinectV2MouseControl
         {
             kinectCtrl.Close();
             System.Environment.Exit(0);
+        }
+
+        public void rdiGripGestureChange()
+        {
+            kinectCtrl.useGripGesture = rdiGrip.IsChecked.Value;
+            Properties.Settings.Default.GripGesture = kinectCtrl.useGripGesture;
+            Properties.Settings.Default.Save();
+        }
+
+        private void rdiGrip_Checked(object sender, RoutedEventArgs e)
+        {
+            rdiGripGestureChange();
+        }
+
+        private void rdiPause_Checked(object sender, RoutedEventArgs e)
+        {
+            rdiGripGestureChange();
         }
 
         private void CursorSmoothing_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
