@@ -21,8 +21,6 @@
             <Label Content="Cursor Smoothing" Margin="10,223,117.5,0" VerticalAlignment="Top"/>
             <TextBox x:Name="txtCursorSmoothing" Height="23" Margin="0,223,20.5,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="0.2" FontSize="15" TextAlignment="Right" HorizontalAlignment="Right" Width="77" KeyDown="txtPauseThresold_KeyDown"/>
             <Label Content="Developed by Jingzhou Chen  (http://TangoChen.com)" HorizontalAlignment="Left" Margin="10,323,0,0" VerticalAlignment="Top"/>
-
         </Grid>
-
     </Grid>
 </Window>

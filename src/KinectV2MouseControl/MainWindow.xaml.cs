@@ -1,5 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace KinectV2MouseControl
 {
@@ -10,6 +17,8 @@ namespace KinectV2MouseControl
         public MainWindow()
         {
             InitializeComponent();
+            TrackingView view1 = new TrackingView();
+            view1.Show();
         }
         
         private void MouseSensitivity_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
