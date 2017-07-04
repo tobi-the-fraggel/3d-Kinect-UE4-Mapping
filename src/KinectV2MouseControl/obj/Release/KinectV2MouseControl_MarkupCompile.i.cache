@@ -4,23 +4,15 @@
 winexe
 C#
 .cs
-<<<<<<< Updated upstream
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\
-=======
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\
->>>>>>> Stashed changes
 KinectV2MouseControl
 none
 false
 TRACE
-<<<<<<< Updated upstream
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\App.xaml
-=======
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\App.xaml
->>>>>>> Stashed changes
 21733299696
 
-12-1827290637
+12-897641187
 13-830665276
 MainWindow.xaml;TrackingView.xaml;
 

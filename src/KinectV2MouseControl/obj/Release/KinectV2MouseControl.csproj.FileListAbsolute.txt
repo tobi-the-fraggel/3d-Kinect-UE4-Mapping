@@ -15,7 +15,6 @@ C:\Users\mail\Source\Repos\Mousenect---ModularMouse\Mousenect---ModularMouse\src
 C:\Users\mail\Source\Repos\Mousenect---ModularMouse\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.pdb
 C:\Users\mail\Source\Repos\Mousenect---ModularMouse\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\TrackingView.baml
 C:\Users\mail\Source\Repos\Mousenect---ModularMouse\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\TrackingView.g.cs
-<<<<<<< Updated upstream
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\KinectV2MouseControl.exe.config
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\KinectV2MouseControl.exe
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\KinectV2MouseControl.pdb
@@ -33,22 +32,3 @@ C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\o
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.csproj.GenerateResource.Cache
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.exe
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.pdb
-=======
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\KinectV2MouseControl.exe.config
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\KinectV2MouseControl.exe
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\KinectV2MouseControl.pdb
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\Microsoft.Kinect.dll
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\Microsoft.Kinect.xml
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.csprojResolveAssemblyReference.cache
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\MainWindow.baml
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\TrackingView.baml
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\MainWindow.g.cs
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\TrackingView.g.cs
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\App.g.cs
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl_MarkupCompile.cache
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.g.resources
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.Properties.Resources.resources
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.csproj.GenerateResource.Cache
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.exe
-C:\Users\eradszewski\Documents\GIT\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.pdb
->>>>>>> Stashed changes
