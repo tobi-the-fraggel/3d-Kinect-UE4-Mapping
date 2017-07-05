@@ -102,8 +102,8 @@ namespace KinectV2MouseControl
 
             // set up timer, execute every 0.1s
             timer.Interval = new TimeSpan(0, 0, 0, 0, 100); 
-　　　　    timer.Tick += new EventHandler(Timer_Tick);
-　　　　    timer.Start();
+　　　　     timer.Tick += new EventHandler(Timer_Tick);
+　　　　     timer.Start();
 
             // open the sensor
             sensor.Open();
@@ -206,8 +206,8 @@ namespace KinectV2MouseControl
                         // smoothing for using should be 0 - 0.95f. The way we smooth the cusor is: oldPos + (newPos - oldPos) * smoothValue
                         float smoothing = 1 - cursorSmoothing;
                         // set cursor position
-                        MouseControl.SetCursorPos((int)(curPos.X + (x  * mouseSensitivity * screenWidth - curPos.X) * smoothing), (int)(curPos.Y + ((y + 0.25f) * mouseSensitivity * screenHeight - curPos.Y) * smoothing));
-                        
+                        MouseControl.SetCursorPos((int)(curPos.X + (x * mouseSensitivity * screenWidth - curPos.X) * smoothing), (int)(curPos.Y + ((y + 0.25f) * mouseSensitivity * screenHeight - curPos.Y) * smoothing));
+
                         alreadyTrackedPos = true;
 
                         // Grip gesture

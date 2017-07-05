@@ -204,19 +204,6 @@ namespace KinectV2MouseControl
             }
         }
 
-        private void txtMouseSensitivity_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                float v;
-                if (float.TryParse(txtMouseSensitivity.Text, out v))
-                {
-                    MouseSensitivity.Value = v;
-                    kinectCtrl.mouseSensitivity = (float)MouseSensitivity.Value;
-                }
-            }
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             MouseSensitivity.Value = Properties.Settings.Default.MouseSensitivity;
