@@ -22,9 +22,7 @@ C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\b
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\Microsoft.Kinect.xml
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.csprojResolveAssemblyReference.cache
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\MainWindow.baml
-C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\TrackingView.baml
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\MainWindow.g.cs
-C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\TrackingView.g.cs
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\App.g.cs
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl_MarkupCompile.cache
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.g.resources
