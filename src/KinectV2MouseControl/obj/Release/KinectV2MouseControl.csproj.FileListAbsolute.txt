@@ -30,3 +30,7 @@ C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\o
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.csproj.GenerateResource.Cache
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.exe
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\KinectV2MouseControl.pdb
+C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\LightBuzz.Vitruvius.dll
+C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\Microsoft.Kinect.Face.dll
+C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\Microsoft.Kinect.Face.xml
+C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\InputSimulator.dll

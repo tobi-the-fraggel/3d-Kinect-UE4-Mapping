@@ -3,11 +3,16 @@ using System.Windows;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
 using Microsoft.Kinect;
+using LightBuzz.Vitruvius;
 
 namespace KinectV2MouseControl
 {
     class KinectControl
     {
+        /// <summary>
+        /// Vitruvius Gesture
+        /// </summary>
+        public GestureController GestureCtrl = new GestureController();
         /// <summary>
         /// Active Kinect sensor
         /// </summary>
@@ -83,6 +88,7 @@ namespace KinectV2MouseControl
         /// If true, user did a left hand Grip gesture
         /// </summary>
         bool wasLeftGrip = false;
+
         /// <summary>
         /// If true, user did a right hand Grip gesture
         /// </summary>
@@ -92,6 +98,11 @@ namespace KinectV2MouseControl
         {
             // get Active Kinect Sensor
             sensor = KinectSensor.GetDefault();
+
+            GestureCtrl.AddGesture(GestureType.SwipeLeft);
+            GestureCtrl.AddGesture(GestureType.SwipeRight);
+            GestureCtrl.Start();
+            GestureCtrl.GestureRecognized += Gesture_Event;
             // open the reader for the body frames
             bodyFrameReader = sensor.BodyFrameSource.OpenReader();
             bodyFrameReader.FrameArrived += bodyFrameReader_FrameArrived;
@@ -101,16 +112,28 @@ namespace KinectV2MouseControl
             screenHeight = (int)SystemParameters.PrimaryScreenHeight;
 
             // set up timer, execute every 0.1s
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 100); 
-　　　　     timer.Tick += new EventHandler(Timer_Tick);
-　　　　     timer.Start();
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            timer.Tick += new EventHandler(Timer_Tick);
+            timer.Start();
 
             // open the sensor
             sensor.Open();
         }
 
+        private void Gesture_Event(object sender, GestureEventArgs e)
+        {
+            if(e.GestureType == GestureType.WaveLeft)
+            {
+                
+            }
+            else if(e.GestureType == GestureType.SwipeRight)
+            {
+                
+            }
+        }
 
-        
+
+
         /// <summary>
         /// Pause to click timer
         /// </summary>
@@ -124,7 +147,7 @@ namespace KinectV2MouseControl
                 timeCount = 0;
                 return;
             }
-            
+
             Point curPos = MouseControl.GetCursorPosition();
 
             if ((lastCurPos - curPos).Length < pauseThresold)
@@ -171,7 +194,7 @@ namespace KinectV2MouseControl
                 }
             }
 
-            if (!dataReceived) 
+            if (!dataReceived)
             {
                 alreadyTrackedPos = false;
                 return;
@@ -190,10 +213,11 @@ namespace KinectV2MouseControl
 
                     if (handRight.Z - spineBase.Z < -0.01f) // if right hand lift forward
                     {
-                        if(body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Lasso)
+                        if (body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Lasso)
                         {
                             System.Environment.Exit(0);
                         }
+
                         /* hand x calculated by this. we don't use shoulder right as a reference cause the shoulder right
                          * is usually behind the lift right hand, and the position would be inferred and unstable.
                          * because the spine base is on the left of right hand, we plus 0.05f to make it closer to the right. */

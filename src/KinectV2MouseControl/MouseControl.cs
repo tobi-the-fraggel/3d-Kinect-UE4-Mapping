@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using WindowsInput;
 
 namespace KinectV2MouseControl
 {
@@ -20,6 +21,12 @@ namespace KinectV2MouseControl
         {
             mouse_event(MouseEventFlag.LeftDown | MouseEventFlag.LeftUp, 0, 0, 0, UIntPtr.Zero);
         }
+
+        public static void PressLeftArrowKey()
+        {
+            WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.LEFT);
+        }
+
 
         [DllImport("user32.dll")]
         public static extern bool SetCursorPos(int X, int Y);
@@ -71,6 +78,5 @@ namespace KinectV2MouseControl
 
             return lpPoint;
         }
-
     }
 }
