@@ -91,6 +91,7 @@ namespace KinectV2MouseControl
             // open the sensor
             sensor.Open();
 
+            //Vitruvius
             _reader = sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Depth | FrameSourceTypes.Infrared | FrameSourceTypes.Body);
             _reader.MultiSourceFrameArrived += Reader_MultiSourceFrameArrived;
             gestureController = new GestureController();
