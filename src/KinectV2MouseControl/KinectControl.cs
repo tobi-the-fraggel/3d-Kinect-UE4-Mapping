@@ -5,7 +5,7 @@ using System.Windows.Threading;
 using Microsoft.Kinect;
 using LightBuzz.Vitruvius;
 
-namespace KinectV2MouseControl
+namespace Mousenect
 {
     class KinectControl
     {

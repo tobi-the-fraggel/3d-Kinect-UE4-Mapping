@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using WindowsInput;
 
-namespace KinectV2MouseControl
+namespace Mousenect
 {
     class MouseControl
     {

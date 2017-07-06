@@ -11,7 +11,7 @@ using Microsoft.Kinect;
 using LightBuzz.Vitruvius;
 using System;
 
-namespace KinectV2MouseControl
+namespace Mousenect
 {
     public partial class MainWindow : Window
     {
