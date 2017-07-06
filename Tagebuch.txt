@@ -5,3 +5,5 @@
 - Vitruvius-Libary implementiert
 	- dadurch entfällt viel Code auf Basis des Microsoft Kinect SDK (von 500 Zeilen zu ca. 100)
 	- Verständliche Funktionen für Gestenerkennung wird eingeführt
+- Projekt umbenannt
+- Code bereinigt
