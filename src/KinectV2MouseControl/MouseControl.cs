@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using WindowsInput;
 
-namespace KinectV2MouseControl
+namespace Mousenect
 {
     class MouseControl
     {
@@ -27,9 +27,9 @@ namespace KinectV2MouseControl
             WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.LEFT);
         }
 
-        public static void CloseApp()
+        public static void PressRightArrowKey()
         {
-            System.Environment.Exit(0);
+            WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.RIGHT);
         }
 
 
