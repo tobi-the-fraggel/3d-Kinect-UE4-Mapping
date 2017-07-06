@@ -10,13 +10,14 @@ namespace KinectV2MouseControl
     class KinectControl
     {
         /// <summary>
-        /// Vitruvius Gesture
-        /// </summary>
-        public GestureController GestureCtrl = new GestureController();
-        /// <summary>
         /// Active Kinect sensor
         /// </summary>
         public KinectSensor sensor;
+        /// <summary>
+        /// Vitruvius Deklaration
+        /// </summary>
+        GestureController gestureController;
+        MultiSourceFrameReader _reader;
         /// <summary>
         /// Reader for body frames
         /// </summary>
@@ -31,23 +32,10 @@ namespace KinectV2MouseControl
         int screenWidth, screenHeight;
 
         /// <summary>
-        /// timer for pause-to-click feature
-        /// </summary>
-        DispatcherTimer timer = new DispatcherTimer();
-
-        /// <summary>
         /// How far the cursor move according to your hand's movement
         /// </summary>
         public float mouseSensitivity = MOUSE_SENSITIVITY;
 
-        /// <summary>
-        /// Time required as a pause-clicking
-        /// </summary>
-        public float timeRequired = TIME_REQUIRED;
-        /// <summary>
-        /// The radius range your hand move inside a circle for [timeRequired] seconds would be regarded as a pause-clicking
-        /// </summary>
-        public float pauseThresold = PAUSE_THRESOLD;
         /// <summary>
         /// Decide if the user need to do clicks or only move the cursor
         /// </summary>
@@ -63,8 +51,6 @@ namespace KinectV2MouseControl
 
         // Default values
         public const float MOUSE_SENSITIVITY = 3.5f;
-        public const float TIME_REQUIRED = 2f;
-        public const float PAUSE_THRESOLD = 60f;
         public const bool DO_CLICK = true;
         public const bool USE_GRIP_GESTURE = true;
         public const float CURSOR_SMOOTHING = 0.2f;
@@ -75,10 +61,6 @@ namespace KinectV2MouseControl
         /// </summary>
         bool alreadyTrackedPos = false;
 
-        /// <summary>
-        /// for storing the time passed for pause-to-click
-        /// </summary>
-        float timeCount = 0;
         /// <summary>
         /// For storing last cursor position
         /// </summary>
@@ -98,11 +80,6 @@ namespace KinectV2MouseControl
         {
             // get Active Kinect Sensor
             sensor = KinectSensor.GetDefault();
-
-            GestureCtrl.AddGesture(GestureType.SwipeLeft);
-            GestureCtrl.AddGesture(GestureType.SwipeRight);
-            GestureCtrl.Start();
-            GestureCtrl.GestureRecognized += Gesture_Event;
             // open the reader for the body frames
             bodyFrameReader = sensor.BodyFrameSource.OpenReader();
             bodyFrameReader.FrameArrived += bodyFrameReader_FrameArrived;
@@ -111,69 +88,42 @@ namespace KinectV2MouseControl
             screenWidth = (int)SystemParameters.PrimaryScreenWidth;
             screenHeight = (int)SystemParameters.PrimaryScreenHeight;
 
-            // set up timer, execute every 0.1s
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            timer.Tick += new EventHandler(Timer_Tick);
-            timer.Start();
-
             // open the sensor
             sensor.Open();
+
+            _reader = sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Depth | FrameSourceTypes.Infrared | FrameSourceTypes.Body);
+            _reader.MultiSourceFrameArrived += Reader_MultiSourceFrameArrived;
+            gestureController = new GestureController();
+            gestureController.GestureRecognized += GestureController_GestureRecognized;
         }
 
-        private void Gesture_Event(object sender, GestureEventArgs e)
+        void GestureController_GestureRecognized(object sender, GestureEventArgs e)
         {
-            if(e.GestureType == GestureType.WaveLeft)
-            {
-                
-            }
-            else if(e.GestureType == GestureType.SwipeRight)
-            {
-                
-            }
         }
 
-
-
-        /// <summary>
-        /// Pause to click timer
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void Timer_Tick(object sender, EventArgs e)
+        void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
         {
-            if (!doClick || useGripGesture) return;
-
-            if (!alreadyTrackedPos) {
-                timeCount = 0;
-                return;
-            }
-
-            Point curPos = MouseControl.GetCursorPosition();
-
-            if ((lastCurPos - curPos).Length < pauseThresold)
+            var reference = e.FrameReference.AcquireFrame();
+            // Body
+            using (var frame = reference.BodyFrameReference.AcquireFrame())
             {
-                if ((timeCount += 0.1f) > timeRequired)
+                if (frame != null)
                 {
-                    //MouseControl.MouseLeftDown();
-                    //MouseControl.MouseLeftUp();
-                    MouseControl.DoMouseClick();
-                    timeCount = 0;
+                    Body body = frame.Bodies().Closest();
+
+                    if (body != null)
+                    {
+                        gestureController.Update(body);
+                    }
                 }
             }
-            else
-            {
-                timeCount = 0;
-            }
-
-            lastCurPos = curPos;
         }
-
-        /// <summary>
-        /// Read body frames
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void bodyFrameReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
+            /// <summary>
+            /// Read body frames
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            void bodyFrameReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
         {
             bool dataReceived = false;
 
@@ -213,6 +163,7 @@ namespace KinectV2MouseControl
 
                     if (handRight.Z - spineBase.Z < -0.01f) // if right hand lift forward
                     {
+                        //2x Lasso zum beenden der Anwendung
                         if (body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Lasso)
                         {
                             System.Environment.Exit(0);
@@ -270,12 +221,6 @@ namespace KinectV2MouseControl
 
         public void Close()
         {
-            if (timer != null)
-            {
-                timer.Stop();
-                timer = null;
-            }
-
             if (this.sensor != null)
             {
                 this.sensor.Close();

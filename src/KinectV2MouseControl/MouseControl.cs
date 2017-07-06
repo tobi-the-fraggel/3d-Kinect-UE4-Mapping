@@ -27,6 +27,11 @@ namespace KinectV2MouseControl
             WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.LEFT);
         }
 
+        public static void CloseApp()
+        {
+            System.Environment.Exit(0);
+        }
+
 
         [DllImport("user32.dll")]
         public static extern bool SetCursorPos(int X, int Y);
