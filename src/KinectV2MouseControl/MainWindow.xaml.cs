@@ -11,7 +11,7 @@ using Microsoft.Kinect;
 using LightBuzz.Vitruvius;
 using System;
 
-namespace KinectV2MouseControl
+namespace Mousenect
 {
     public partial class MainWindow : Window
     {
@@ -21,13 +21,13 @@ namespace KinectV2MouseControl
         PlayersController _playersController;
         #endregion
 
+        //Objekt der Klasse KinectControl erzeugen
         KinectControl kinectCtrl = new KinectControl();
 
         public MainWindow()
         {
             InitializeComponent();
 
-            #region Konstruktor-Teil für TrackingView
             _sensor = KinectSensor.GetDefault();
 
             if (_sensor != null)
@@ -36,8 +36,12 @@ namespace KinectV2MouseControl
 
                 _reader = _sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Depth | FrameSourceTypes.Infrared | FrameSourceTypes.Body);
                 _reader.MultiSourceFrameArrived += Reader_MultiSourceFrameArrived;
+
+                _playersController = new PlayersController();
+                _playersController.BodyEntered += UserReporter_BodyEntered;
+                _playersController.BodyLeft += UserReporter_BodyLeft;
+                _playersController.Start();
             }
-            #endregion
         }
         
         private void MouseSensitivity_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -59,6 +63,24 @@ namespace KinectV2MouseControl
             CursorSmoothing.Value = Properties.Settings.Default.CursorSmoothing;
         }
 
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (_playersController != null)
+            {
+                _playersController.Stop();
+            }
+
+            if (_reader != null)
+            {
+                _reader.Dispose();
+            }
+
+            if (_sensor != null)
+            {
+                _sensor.Close();
+            }
+        }
+
         private void btnDefault_Click(object sender, RoutedEventArgs e)
         {
             MouseSensitivity.Value = KinectControl.MOUSE_SENSITIVITY;
@@ -70,7 +92,6 @@ namespace KinectV2MouseControl
         {
             chkNoClickChange();
         }
-
 
         public void chkNoClickChange()
         {
@@ -123,9 +144,30 @@ namespace KinectV2MouseControl
             {
                 if (frame != null)
                 {
-                    Body body = frame.Bodies().Closest();
+                    var closest = frame.Bodies().Closest();
+                    _playersController.Update(frame.Bodies());
+
+                    if (closest != null)
+                    {
+                        viewer.DrawBody(closest);
+                        HL_State.Content = closest.HandLeftState.ToString();
+                        HR_State.Content = closest.HandRightState.ToString();
+                    }
+                    else
+                        viewer.Clear();
                 }
             }
+        }
+
+        void UserReporter_BodyEntered(object sender, PlayersControllerEventArgs e)
+        {
+            // A new user has entered the scene.
+        }
+
+        void UserReporter_BodyLeft(object sender, PlayersControllerEventArgs e)
+        {
+            // A user has left the scene.
+            viewer.Clear();
         }
         #endregion
     }
