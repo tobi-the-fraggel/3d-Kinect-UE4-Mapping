@@ -28,7 +28,6 @@ namespace Mousenect
         {
             InitializeComponent();
 
-            #region Konstruktor-Teil für TrackingView
             _sensor = KinectSensor.GetDefault();
 
             if (_sensor != null)
@@ -43,7 +42,6 @@ namespace Mousenect
                 _playersController.BodyLeft += UserReporter_BodyLeft;
                 _playersController.Start();
             }
-            #endregion
         }
         
         private void MouseSensitivity_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -94,7 +92,6 @@ namespace Mousenect
         {
             chkNoClickChange();
         }
-
 
         public void chkNoClickChange()
         {

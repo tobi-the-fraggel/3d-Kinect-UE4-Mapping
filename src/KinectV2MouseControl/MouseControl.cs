@@ -27,9 +27,9 @@ namespace Mousenect
             WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.LEFT);
         }
 
-        public static void CloseApp()
+        public static void PressRightArrowKey()
         {
-            System.Environment.Exit(0);
+            WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.RIGHT);
         }
 
 
