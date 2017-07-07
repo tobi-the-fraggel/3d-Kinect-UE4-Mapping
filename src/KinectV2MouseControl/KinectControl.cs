@@ -99,6 +99,7 @@ namespace Mousenect
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            Console.WriteLine("Gesten-Pause vorbei");
             wasGesture = false;
             timer.Stop();
         }
@@ -107,6 +108,8 @@ namespace Mousenect
         {
             wasGesture = true;
             timer.Start();
+
+            Console.WriteLine("Geste wurde erkannt:" + e.GestureType.ToString());
         }
 
         void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
@@ -198,6 +201,7 @@ namespace Mousenect
         public void setProgramm(byte Auswahl)
         {
             this.Programm = Auswahl;
+            Console.WriteLine("Kinect-Control hat Programm geändert: " + Auswahl);
         }
 
         public void Close()

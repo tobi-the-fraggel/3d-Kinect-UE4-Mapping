@@ -15,11 +15,9 @@ namespace Mousenect
 {
     public partial class MainWindow : Window
     {
-        #region Deklaration für TrackingView
         KinectSensor _sensor;
         MultiSourceFrameReader _reader;
         PlayersController _playersController;
-        #endregion
 
         //Objekt der Klasse KinectControl erzeugen
         KinectControl kinectCtrl = new KinectControl();
@@ -53,6 +51,8 @@ namespace Mousenect
                 
                 Properties.Settings.Default.MouseSensitivity = kinectCtrl.mouseSensitivity;
                 Properties.Settings.Default.Save();
+
+                Console.WriteLine("Mouse Sensitivity wurde verändert");
             }
         }
 
@@ -86,8 +86,10 @@ namespace Mousenect
             MouseSensitivity.Value = KinectControl.MOUSE_SENSITIVITY;
             CursorSmoothing.Value = KinectControl.CURSOR_SMOOTHING;
             chkNoClick.IsChecked = !KinectControl.DO_CLICK;
+            Console.WriteLine("Werte auf Standard zurückgesetzt");
         }
 
+        #region NoClick-Checker
         private void chkNoClick_Checked(object sender, RoutedEventArgs e)
         {
             chkNoClickChange();
@@ -98,12 +100,14 @@ namespace Mousenect
             kinectCtrl.doClick = !chkNoClick.IsChecked.Value;
             Properties.Settings.Default.DoClick = kinectCtrl.doClick;
             Properties.Settings.Default.Save();
+            Console.WriteLine("NoClick wurde verändert");
         }
 
         private void chkNoClick_Unchecked(object sender, RoutedEventArgs e)
         {
             chkNoClickChange();
         }
+        #endregion
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -119,10 +123,12 @@ namespace Mousenect
 
                 Properties.Settings.Default.CursorSmoothing = kinectCtrl.cursorSmoothing;
                 Properties.Settings.Default.Save();
+
+                Console.WriteLine("CursorSmoothing wurde verändert");
             }
         }
 
-        #region Methoden für TrackingView
+        #region Methoden für Kinect-Anzeige
         void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
         {
             var reference = e.FrameReference.AcquireFrame();
@@ -161,12 +167,14 @@ namespace Mousenect
 
         void UserReporter_BodyEntered(object sender, PlayersControllerEventArgs e)
         {
+            Console.WriteLine("Neuer Body in der Szene");
             // A new user has entered the scene.
         }
 
         void UserReporter_BodyLeft(object sender, PlayersControllerEventArgs e)
         {
             // A user has left the scene.
+            Console.WriteLine("Body aus der Szene entfernt");
             viewer.Clear();
         }
         #endregion
@@ -177,15 +185,15 @@ namespace Mousenect
             {
                 case 0:
                     kinectCtrl.setProgramm(1);
-                    Console.WriteLine("Maus");
+                    Console.WriteLine("Maus wurde ausgewählt");
                     break;
                 case 1:
                     kinectCtrl.setProgramm(2);
-                    Console.WriteLine("Powerpoint");
+                    Console.WriteLine("Powerpoint wurde ausgewählt");
                     break;
                 default:
                     kinectCtrl.setProgramm(1);
-                    Console.WriteLine("Default");
+                    Console.WriteLine("FEHLER");
                     break;
             }
         }
