@@ -17,3 +17,4 @@ C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\o
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\Mousenect.csproj.GenerateResource.Cache
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\Mousenect.exe
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\Mousenect.pdb
+C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\Mousenect.csprojResolveAssemblyReference.cache

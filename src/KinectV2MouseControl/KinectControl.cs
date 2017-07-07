@@ -26,23 +26,13 @@ namespace Mousenect
         /// </summary>
         MultiSourceFrameReader _reader;
         /// <summary>
-        /// Reader for body frames
-        /// </summary>
-        BodyFrameReader bodyFrameReader;
-        /// <summary>
-        /// Array for the bodies
-        /// </summary>
-        private Body[] bodies = null;
-        /// <summary>
         /// Screen width and height for determining the exact mouse sensitivity
         /// </summary>
         int screenWidth, screenHeight;
-
         /// <summary>
         /// How far the cursor move according to your hand's movement
         /// </summary>
         public float mouseSensitivity = MOUSE_SENSITIVITY;
-
         /// <summary>
         /// Decide if the user need to do clicks or only move the cursor
         /// </summary>
@@ -61,12 +51,11 @@ namespace Mousenect
         public const bool DO_CLICK = true;
         public const bool USE_GRIP_GESTURE = true;
         public const float CURSOR_SMOOTHING = 0.2f;
-
+        
         /// <summary>
         /// For storing last cursor position
         /// </summary>
         Point lastCurPos = new Point(0, 0);
-
         /// <summary>
         /// If true, user did a left hand Grip gesture
         /// </summary>
@@ -110,12 +99,13 @@ namespace Mousenect
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            wasGesture = true;
+            wasGesture = false;
             timer.Stop();
         }
 
         void GestureController_GestureRecognized(object sender, GestureEventArgs e)
         {
+            wasGesture = true;
             timer.Start();
         }
 
@@ -130,66 +120,84 @@ namespace Mousenect
                     //Den Closest Body wählen
                     Body body = frame.Bodies().Closest();
 
-
-
                     // get closest tracked body only, notice there's a break below.
                     if (body != null)
                     {
+                        //Gesture-Controller das neuste Frame liefern
                         gestureController.Update(body);
-                        // get various skeletal positions
-                        CameraSpacePoint handLeft = body.Joints[JointType.HandLeft].Position;
-                        CameraSpacePoint handRight = body.Joints[JointType.HandRight].Position;
-                        CameraSpacePoint spineBase = body.Joints[JointType.SpineBase].Position;
 
-                        if (body.HandRightState != HandState.Unknown && body.HandRightState != HandState.NotTracked) // Rechte Hand muss getrackt sein
+                        //2x Lasso zum beenden der Anwendung
+                        if (body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Lasso)
                         {
-                            //2x Lasso zum beenden der Anwendung
-                            if (body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Lasso)
-                            {
-                                System.Environment.Exit(0);
-                            }
-                            /* hand x calculated by this. we don't use shoulder right as a reference cause the shoulder right
-                             * is usually behind the lift right hand, and the position would be inferred and unstable.
-                             * because the spine base is on the left of right hand, we plus 0.05f to make it closer to the right. */
-                            float x = handRight.X - spineBase.X + 0.05f;
-                            /* hand y calculated by this. ss spine base is way lower than right hand, we plus 0.51f to make it
-                             * higer, the value 0.51f is worked out by testing for a several times, you can set it as another one you like. */
-                            float y = spineBase.Y - handRight.Y + 0.51f;
-                            // get current cursor position
-                            Point curPos = MouseControl.GetCursorPosition();
-                            // smoothing for using should be 0 - 0.95f. The way we smooth the cusor is: oldPos + (newPos - oldPos) * smoothValue
-                            float smoothing = 1 - cursorSmoothing;
-                            // set cursor position
-                            MouseControl.SetCursorPos((int)(curPos.X + (x * mouseSensitivity * screenWidth - curPos.X) * smoothing), (int)(curPos.Y + ((y + 0.25f) * mouseSensitivity * screenHeight - curPos.Y) * smoothing));
-
-                            // Grip gesture
-                            if (doClick && useGripGesture)
-                            {
-                                if (body.HandLeftState == HandState.Closed)
-                                {
-                                    if (!wasLeftGrip)
-                                    {
-                                        MouseControl.MouseLeftDown();
-                                        wasLeftGrip = true;
-                                    }
-                                }
-                                else if (body.HandLeftState == HandState.Open)
-                                {
-                                    if (wasLeftGrip)
-                                    {
-                                        MouseControl.MouseLeftUp();
-                                        wasLeftGrip = false;
-                                    }
-                                }
-                            }
+                            System.Environment.Exit(0);
                         }
-                        else
+
+                        if (Programm == 1)
                         {
-                            wasLeftGrip = true;
+                            //Wenn Hände erkannt -> Maus-Zeiger bewegen
+                            if (body.HandRightState != HandState.Unknown && body.HandRightState != HandState.NotTracked) // Rechte Hand muss getrackt sein
+                            {
+                                // Positionen der linken, rechten Hand und Rücken auslesen
+                                CameraSpacePoint handLeft = body.Joints[JointType.HandLeft].Position;
+                                CameraSpacePoint handRight = body.Joints[JointType.HandRight].Position;
+                                CameraSpacePoint spineBase = body.Joints[JointType.SpineBase].Position;
+
+                                /* hand x calculated by this. we don't use shoulder right as a reference cause the shoulder right
+                                 * is usually behind the lift right hand, and the position would be inferred and unstable.
+                                 * because the spine base is on the left of right hand, we plus 0.05f to make it closer to the right. */
+                                float x = handRight.X - spineBase.X + 0.05f;
+                                /* hand y calculated by this. ss spine base is way lower than right hand, we plus 0.51f to make it
+                                 * higher, the value 0.51f is worked out by testing for a several times, you can set it as another one you like. */
+                                float y = spineBase.Y - handRight.Y + 0.51f;
+                                // get current cursor position
+                                Point curPos = MouseControl.GetCursorPosition();
+                                // smoothing for using should be 0 - 0.95f. The way we smooth the cusor is: oldPos + (newPos - oldPos) * smoothValue
+                                float smoothing = 1 - cursorSmoothing;
+                                // set cursor position
+                                MouseControl.SetCursorPos((int)(curPos.X + (x * mouseSensitivity * screenWidth - curPos.X) * smoothing), (int)(curPos.Y + ((y + 0.25f) * mouseSensitivity * screenHeight - curPos.Y) * smoothing));
+
+                                //Maus Zentrieren
+                                if(body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Open)
+                                {
+                                    if (!wasGesture)
+                                    {
+                                        wasGesture = true;
+                                        timer.Start();
+
+                                        
+                                    }
+                                }
+
+                                // Grip gesture
+                                if (doClick && useGripGesture)
+                                {
+                                    if (body.HandLeftState == HandState.Closed)
+                                    {
+                                        if (!wasLeftGrip)
+                                        {
+                                            MouseControl.MouseLeftDown();
+                                            wasLeftGrip = true;
+                                        }
+                                    }
+                                    else if (body.HandLeftState == HandState.Open)
+                                    {
+                                        if (wasLeftGrip)
+                                        {
+                                            MouseControl.MouseLeftUp();
+                                            wasLeftGrip = false;
+                                        }
+                                    }
+                                }
+                            } // Ende der Maus-Bewegung
                         }
                     }
                 }
             }
+        }
+
+        public void setProgramm(byte Auswahl)
+        {
+            this.Programm = Auswahl;
         }
 
         public void Close()

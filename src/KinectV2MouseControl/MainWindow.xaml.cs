@@ -170,5 +170,24 @@ namespace Mousenect
             viewer.Clear();
         }
         #endregion
+
+        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            switch (Programm_Auswahl.SelectedIndex)
+            {
+                case 0:
+                    kinectCtrl.setProgramm(1);
+                    Console.WriteLine("Maus");
+                    break;
+                case 1:
+                    kinectCtrl.setProgramm(2);
+                    Console.WriteLine("Powerpoint");
+                    break;
+                default:
+                    kinectCtrl.setProgramm(1);
+                    Console.WriteLine("Default");
+                    break;
+            }
+        }
     }
 }
