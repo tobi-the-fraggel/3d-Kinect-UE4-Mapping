@@ -71,16 +71,16 @@ namespace Mousenect
         /// If true, user did a left hand Grip gesture
         /// </summary>
         bool wasLeftGrip = false;
-
-        /// <summary>
-        /// If true, user did a right hand Grip gesture
-        /// </summary>
-        bool wasRightGrip = false;
-
         /// <summary>
         /// Verzögerung zwischen den Gesten
         /// </summary>
         bool wasGesture = false;
+        /// <summary>
+        /// Variable zur Steuerung verschiedener Programme
+        /// Maus = 1
+        /// Powerpoint = 2
+        /// </summary>
+        public byte Programm;
 
         public KinectControl()
         {
@@ -94,6 +94,9 @@ namespace Mousenect
             //Timer-Setup
             timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             timer.Tick += new EventHandler(Timer_Tick);
+
+            //Default für Programm (Maus)
+            Programm = 1;
 
             // open the sensor
             sensor.Open();
@@ -145,7 +148,6 @@ namespace Mousenect
                             {
                                 System.Environment.Exit(0);
                             }
-
                             /* hand x calculated by this. we don't use shoulder right as a reference cause the shoulder right
                              * is usually behind the lift right hand, and the position would be inferred and unstable.
                              * because the spine base is on the left of right hand, we plus 0.05f to make it closer to the right. */
@@ -184,7 +186,6 @@ namespace Mousenect
                         else
                         {
                             wasLeftGrip = true;
-                            wasRightGrip = true;
                         }
                     }
                 }
