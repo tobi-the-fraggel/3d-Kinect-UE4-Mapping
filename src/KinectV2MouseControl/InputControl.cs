@@ -23,6 +23,12 @@ namespace Mousenect
             //WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.LBUTTON);
         }
 
+        public static void DoDoubleMouseClick()
+        {
+            WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.LBUTTON);
+            WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.LBUTTON);
+        }
+
         public static void PressLeftArrowKey()
         {
             WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.LEFT);

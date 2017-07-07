@@ -51,7 +51,7 @@ namespace Mousenect
         public const bool DO_CLICK = true;
         public const bool USE_GRIP_GESTURE = true;
         public const float CURSOR_SMOOTHING = 0.2f;
-        
+
         /// <summary>
         /// For storing last cursor position
         /// </summary>
@@ -64,12 +64,14 @@ namespace Mousenect
         /// Verzögerung zwischen den Gesten
         /// </summary>
         bool wasGesture = false;
+        bool wasDoubleLasso = false;
+        int DoubleLassoCount = 0;
         /// <summary>
         /// Variable zur Steuerung verschiedener Programme
         /// Maus = 1
         /// Powerpoint = 2
         /// </summary>
-        public byte Programm;
+        public byte Programm = 1;
 
         public KinectControl()
         {
@@ -80,9 +82,10 @@ namespace Mousenect
             screenWidth = (int)SystemParameters.PrimaryScreenWidth;
             screenHeight = (int)SystemParameters.PrimaryScreenHeight;
 
-            //Timer-Setup
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
+            #region Timer-Setup
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 5000);
             timer.Tick += new EventHandler(Timer_Tick);
+            #endregion
 
             //Default für Programm (Maus)
             Programm = 1;
@@ -97,19 +100,35 @@ namespace Mousenect
             gestureController.GestureRecognized += GestureController_GestureRecognized;
         }
 
+        #region Timer-Tick's
         private void Timer_Tick(object sender, EventArgs e)
         {
             Console.WriteLine("Gesten-Pause vorbei");
             wasGesture = false;
+            wasDoubleLasso = false;
             timer.Stop();
         }
+        #endregion
 
         void GestureController_GestureRecognized(object sender, GestureEventArgs e)
         {
             wasGesture = true;
             timer.Start();
 
-            Console.WriteLine("Geste wurde erkannt:" + e.GestureType.ToString());
+            Console.WriteLine("Geste wurde erkannt: " + e.GestureType.ToString());
+
+            if (Programm == 2)
+            {
+                if (e.GestureType == GestureType.SwipeRight)
+                {
+                    InputControl.PressRightArrowKey();
+                }
+                else if (e.GestureType == GestureType.SwipeLeft)
+                {
+                    InputControl.PressLeftArrowKey();
+                }
+
+            }
         }
 
         void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
@@ -129,10 +148,25 @@ namespace Mousenect
                         //Gesture-Controller das neuste Frame liefern
                         gestureController.Update(body);
 
-                        //2x Lasso zum beenden der Anwendung
+                        //2x Lasso zum beenden der Anwendung muss 1 sec gehalten werden
                         if (body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Lasso)
                         {
-                            System.Environment.Exit(0);
+                            if (!wasDoubleLasso)
+                            {
+                                wasDoubleLasso = true;
+                                DoubleLassoCount = 0;
+                            }
+                            else
+                            {
+                                DoubleLassoCount++;
+                                if(DoubleLassoCount > 50)
+                                System.Environment.Exit(0);
+                            }
+                        }
+                        else
+                        {
+                            wasDoubleLasso = false;
+                            DoubleLassoCount = 0;
                         }
 
                         if (Programm == 1)
@@ -158,18 +192,6 @@ namespace Mousenect
                                 float smoothing = 1 - cursorSmoothing;
                                 // set cursor position
                                 InputControl.SetCursorPos((int)(curPos.X + (x * mouseSensitivity * screenWidth - curPos.X) * smoothing), (int)(curPos.Y + ((y + 0.25f) * mouseSensitivity * screenHeight - curPos.Y) * smoothing));
-
-                                //Maus Zentrieren
-                                if(body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Open)
-                                {
-                                    if (!wasGesture)
-                                    {
-                                        wasGesture = true;
-                                        timer.Start();
-
-                                        
-                                    }
-                                }
 
                                 // Grip gesture
                                 if (doClick && useGripGesture)
