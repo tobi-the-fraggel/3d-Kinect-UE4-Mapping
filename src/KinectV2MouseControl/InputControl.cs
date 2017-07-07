@@ -6,7 +6,7 @@ using WindowsInput;
 
 namespace Mousenect
 {
-    class MouseControl
+    class InputControl
     {
         public static void MouseLeftDown()
         {
@@ -20,6 +20,7 @@ namespace Mousenect
         public static void DoMouseClick()
         {
             mouse_event(MouseEventFlag.LeftDown | MouseEventFlag.LeftUp, 0, 0, 0, UIntPtr.Zero);
+            //WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.LBUTTON);
         }
 
         public static void PressLeftArrowKey()
@@ -32,7 +33,7 @@ namespace Mousenect
             WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.RIGHT);
         }
 
-
+        
         [DllImport("user32.dll")]
         public static extern bool SetCursorPos(int X, int Y);
         [DllImport("user32.dll")]
