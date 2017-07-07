@@ -6,7 +6,7 @@ using WindowsInput;
 
 namespace Mousenect
 {
-    class MouseControl
+    class InputControl
     {
         public static void MouseLeftDown()
         {

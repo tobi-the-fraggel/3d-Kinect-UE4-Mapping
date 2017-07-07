@@ -153,11 +153,11 @@ namespace Mousenect
                                  * higher, the value 0.51f is worked out by testing for a several times, you can set it as another one you like. */
                                 float y = spineBase.Y - handRight.Y + 0.51f;
                                 // get current cursor position
-                                Point curPos = MouseControl.GetCursorPosition();
+                                Point curPos = InputControl.GetCursorPosition();
                                 // smoothing for using should be 0 - 0.95f. The way we smooth the cusor is: oldPos + (newPos - oldPos) * smoothValue
                                 float smoothing = 1 - cursorSmoothing;
                                 // set cursor position
-                                MouseControl.SetCursorPos((int)(curPos.X + (x * mouseSensitivity * screenWidth - curPos.X) * smoothing), (int)(curPos.Y + ((y + 0.25f) * mouseSensitivity * screenHeight - curPos.Y) * smoothing));
+                                InputControl.SetCursorPos((int)(curPos.X + (x * mouseSensitivity * screenWidth - curPos.X) * smoothing), (int)(curPos.Y + ((y + 0.25f) * mouseSensitivity * screenHeight - curPos.Y) * smoothing));
 
                                 //Maus Zentrieren
                                 if(body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Open)
@@ -178,7 +178,7 @@ namespace Mousenect
                                     {
                                         if (!wasLeftGrip)
                                         {
-                                            MouseControl.MouseLeftDown();
+                                            InputControl.MouseLeftDown();
                                             wasLeftGrip = true;
                                         }
                                     }
@@ -186,7 +186,7 @@ namespace Mousenect
                                     {
                                         if (wasLeftGrip)
                                         {
-                                            MouseControl.MouseLeftUp();
+                                            InputControl.MouseLeftUp();
                                             wasLeftGrip = false;
                                         }
                                     }
