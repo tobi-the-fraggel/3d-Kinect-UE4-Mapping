@@ -66,6 +66,7 @@ namespace Mousenect
         bool wasGesture = false;
         bool wasDoubleLasso = false;
         int DoubleLassoCount = 0;
+        int GripCount = 0;
         /// <summary>
         /// Variable zur Steuerung verschiedener Programme
         /// Maus = 1
@@ -83,7 +84,7 @@ namespace Mousenect
             screenHeight = (int)SystemParameters.PrimaryScreenHeight;
 
             #region Timer-Setup
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 5000);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             timer.Tick += new EventHandler(Timer_Tick);
             #endregion
 
@@ -110,27 +111,43 @@ namespace Mousenect
         }
         #endregion
 
+        /// <summary>
+        /// Event wird bei erkannter Geste ausgelöst
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">enthält die erkannte Geste</param>
         void GestureController_GestureRecognized(object sender, GestureEventArgs e)
         {
-            wasGesture = true;
-            timer.Start();
-
-            Console.WriteLine("Geste wurde erkannt: " + e.GestureType.ToString());
-
-            if (Programm == 2)
+            //Geste nur nach einer Sekunde zur vorherigen auswerten
+            if (!wasGesture)
             {
-                if (e.GestureType == GestureType.SwipeRight)
-                {
-                    InputControl.PressRightArrowKey();
-                }
-                else if (e.GestureType == GestureType.SwipeLeft)
-                {
-                    InputControl.PressLeftArrowKey();
-                }
+                wasGesture = true;
+                timer.Start();
 
+                //Debugging Konsolen-Ausgabe
+                Console.WriteLine("Geste wurde erkannt: " + e.GestureType.ToString());
+
+                //PowerPoint-Gesten
+                if (Programm == 2)
+                {
+                    if (e.GestureType == GestureType.SwipeRight)
+                    {
+                        InputControl.PressRightArrowKey();
+                    }
+                    else if (e.GestureType == GestureType.SwipeLeft)
+                    {
+                        InputControl.PressLeftArrowKey();
+                    }
+
+                }
             }
         }
 
+        /// <summary>
+        /// Event wird bei jedem eingehenden Frame ausgelöst
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
         {
             var reference = e.FrameReference.AcquireFrame();
@@ -148,7 +165,7 @@ namespace Mousenect
                         //Gesture-Controller das neuste Frame liefern
                         gestureController.Update(body);
 
-                        //2x Lasso zum beenden der Anwendung muss 1 sec gehalten werden
+                        //2x Lasso zum beenden der Anwendung muss 50 Frames gehalten werden
                         if (body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Lasso)
                         {
                             if (!wasDoubleLasso)
@@ -159,8 +176,8 @@ namespace Mousenect
                             else
                             {
                                 DoubleLassoCount++;
-                                if(DoubleLassoCount > 50)
-                                System.Environment.Exit(0);
+                                if (DoubleLassoCount > 50)
+                                    System.Environment.Exit(0);
                             }
                         }
                         else
@@ -200,17 +217,34 @@ namespace Mousenect
                                     {
                                         if (!wasLeftGrip)
                                         {
-                                            InputControl.MouseLeftDown();
-                                            wasLeftGrip = true;
+                                            GripCount = 0;
                                         }
+                                        else
+                                        {
+                                            GripCount++;
+                                            if(GripCount > 50)
+                                            {
+                                                InputControl.MouseLeftDown();
+                                            }
+                                        }
+                                        wasLeftGrip = true;
                                     }
                                     else if (body.HandLeftState == HandState.Open)
                                     {
                                         if (wasLeftGrip)
                                         {
+                                            if(GripCount <= 50)
+                                            {
+                                                InputControl.DoMouseClick();
+                                            }
+                                            GripCount = 0;
                                             InputControl.MouseLeftUp();
-                                            wasLeftGrip = false;
                                         }
+                                        else
+                                        {
+                                            GripCount = 0;
+                                        }
+                                        wasLeftGrip = false;
                                     }
                                 }
                             } // Ende der Maus-Bewegung
