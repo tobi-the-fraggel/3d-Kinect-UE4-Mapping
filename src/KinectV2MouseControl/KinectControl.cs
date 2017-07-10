@@ -38,10 +38,6 @@ namespace Mousenect
         /// </summary>
         public bool doClick = DO_CLICK;
         /// <summary>
-        /// Use Grip gesture to click or not
-        /// </summary>
-        public bool useGripGesture = USE_GRIP_GESTURE;
-        /// <summary>
         /// Value 0 - 0.95f, the larger it is, the smoother the cursor would move
         /// </summary>
         public float cursorSmoothing = CURSOR_SMOOTHING;
@@ -49,7 +45,6 @@ namespace Mousenect
         // Default values
         public const float MOUSE_SENSITIVITY = 3.5f;
         public const bool DO_CLICK = true;
-        public const bool USE_GRIP_GESTURE = true;
         public const float CURSOR_SMOOTHING = 0.2f;
 
         /// <summary>
@@ -216,7 +211,7 @@ namespace Mousenect
                                 InputControl.SetCursorPos((int)(curPos.X + (x * mouseSensitivity * screenWidth - curPos.X) * smoothing), (int)(curPos.Y + ((y + 0.25f) * mouseSensitivity * screenHeight - curPos.Y) * smoothing));
 
                                 // Grip gesture
-                                if (doClick && useGripGesture)
+                                if (doClick)
                                 {
                                     if (body.HandLeftState == HandState.Closed)
                                     {
