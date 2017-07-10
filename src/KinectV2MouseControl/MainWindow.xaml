@@ -5,7 +5,7 @@
         mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:controls="clr-namespace:LightBuzz.Vitruvius.Controls;assembly=LightBuzz.Vitruvius"
-        Title="Mousenect" Height="455.5" Width="900" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded"
+        Title="Mousenect" Height="455.5" Width="900" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner"
         Closing="Window_Closing" Unloaded="Window_Unloaded">
     <Grid>
         <Grid.RowDefinitions>
@@ -19,27 +19,19 @@
         <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="Datei">
-                    <MenuItem Header="Einstellungen"></MenuItem>
+                    <MenuItem Header="Einstellungen" Click="OpenSettings"></MenuItem>
                     <MenuItem Header="Beenden"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="Steuerung umschalten">
-                    <MenuItem Header="Maus"></MenuItem>
-                    <MenuItem Header="PowerPoint"></MenuItem>
-                    <MenuItem Header="Zeichnungen"></MenuItem>
+                    <MenuItem Header="Maus" IsCheckable="True" IsChecked="True" Click="MenuItem_Click"></MenuItem>
+                    <MenuItem Header="PowerPoint" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
+                    <MenuItem Header="Zeichnungen" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
                     <Separator></Separator>
                     <MenuItem Header="Unreal-Avateering"></MenuItem>
                 </MenuItem>
             </Menu>
         </DockPanel>
         <Grid Grid.Column="0" Grid.Row="1">
-            <Slider x:Name="MouseSensitivity" Margin="10,73,10,0" VerticalAlignment="Top" Height="26" Maximum="6" ValueChanged="MouseSensitivity_ValueChanged" Minimum="1" Value="3.5"/>
-            <Label Content="Mouse Sensitivity" Margin="10,43,118,0" VerticalAlignment="Top" Height="26"/>
-            <TextBox x:Name="txtMouseSensitivity" Height="23" Margin="0,45,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="3.5" FontSize="15" TextAlignment="Right" HorizontalAlignment="Right" Width="78"/>
-            <Button x:Name="btnDefault" Content="Auf Standard zurücksetzen" HorizontalAlignment="Right" Margin="0,163,173,0" Width="167" Click="btnDefault_Click" Height="24" VerticalAlignment="Top"/>
-            <CheckBox x:Name="chkNoClick" Content="Keine Mausklicks" HorizontalAlignment="Left" Margin="212,163,0,0" Height="16" VerticalAlignment="Top" Checked="chkNoClick_Checked" Unchecked="chkNoClick_Unchecked" Width="116"/>
-            <Slider x:Name="CursorSmoothing" Margin="10,132,10,0" VerticalAlignment="Top" Height="26" Maximum="0.95" SmallChange="0.01" Value="0.2" ValueChanged="CursorSmoothing_ValueChanged"/>
-            <Label Content="Cursor Smoothing" Margin="10,99,118,0" VerticalAlignment="Top" Height="26"/>
-            <TextBox x:Name="txtCursorSmoothing" Height="23" Margin="0,104,22,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="0.2" FontSize="15" TextAlignment="Right" HorizontalAlignment="Right" Width="76"/>
             <ComboBox Name="Programm_Auswahl" SelectionChanged="ComboBox_SelectionChanged" HorizontalAlignment="Left" Margin="100,14,0,0" VerticalAlignment="Top" Width="180" Height="22">
                 <ComboBoxItem Content="Maus" HorizontalAlignment="Left" Width="178" Selector.IsSelected="True"/>
                 <ComboBoxItem Content="PowerPoint" HorizontalAlignment="Left" Width="178"/>

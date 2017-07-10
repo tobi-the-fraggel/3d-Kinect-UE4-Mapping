@@ -7,7 +7,7 @@ using LightBuzz.Vitruvius;
 
 namespace Mousenect
 {
-    class KinectControl
+    public class KinectControl
     {
         /// <summary>
         /// Active Kinect sensor
@@ -132,8 +132,8 @@ namespace Mousenect
                 //Debugging Konsolen-Ausgabe
                 Console.WriteLine("Geste wurde erkannt: " + e.GestureType.ToString());
 
-                //PowerPoint-Gesten
-                if (Programm == 2)
+                //PowerPoint-Gesten TEMPORARELY DISABLED
+                if (Programm == 10)
                 {
                     if (e.GestureType == GestureType.SwipeRight)
                     {
@@ -253,6 +253,11 @@ namespace Mousenect
                                     }
                                 }
                             } // Ende der Maus-Bewegung
+                            //PowerPoint-Steuerung
+                            else if(Programm == 2)
+                            {
+
+                            }
                         }
                     }
                 }

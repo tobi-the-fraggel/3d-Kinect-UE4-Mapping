@@ -10,6 +10,7 @@ namespace Mousenect
         KinectSensor _sensor;
         MultiSourceFrameReader _reader;
         PlayersController _playersController;
+        SettingsWindow settings;
 
         //Objekt der Klasse KinectControl erzeugen
         KinectControl kinectCtrl = new KinectControl();
@@ -18,7 +19,8 @@ namespace Mousenect
         {
             InitializeComponent();
 
-            _sensor = KinectSensor.GetDefault();
+            _sensor = kinectCtrl.sensor;
+            settings = new SettingsWindow(kinectCtrl);
 
             if (_sensor != null)
             {
@@ -32,27 +34,6 @@ namespace Mousenect
                 _playersController.BodyLeft += UserReporter_BodyLeft;
                 _playersController.Start();
             }
-        }
-        
-        private void MouseSensitivity_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (MouseSensitivity.IsLoaded)
-            {
-                kinectCtrl.mouseSensitivity = (float)MouseSensitivity.Value;
-                txtMouseSensitivity.Text = kinectCtrl.mouseSensitivity.ToString("f2");
-                
-                Properties.Settings.Default.MouseSensitivity = kinectCtrl.mouseSensitivity;
-                Properties.Settings.Default.Save();
-
-                Console.WriteLine("Mouse Sensitivity wurde verändert");
-            }
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            MouseSensitivity.Value = Properties.Settings.Default.MouseSensitivity;
-            chkNoClick.IsChecked = !Properties.Settings.Default.DoClick;
-            CursorSmoothing.Value = Properties.Settings.Default.CursorSmoothing;
         }
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
@@ -73,51 +54,9 @@ namespace Mousenect
             }
         }
 
-        private void btnDefault_Click(object sender, RoutedEventArgs e)
-        {
-            MouseSensitivity.Value = KinectControl.MOUSE_SENSITIVITY;
-            CursorSmoothing.Value = KinectControl.CURSOR_SMOOTHING;
-            chkNoClick.IsChecked = !KinectControl.DO_CLICK;
-            Console.WriteLine("Werte auf Standard zurückgesetzt");
-        }
-
-        #region NoClick-Checker
-        private void chkNoClick_Checked(object sender, RoutedEventArgs e)
-        {
-            chkNoClickChange();
-        }
-
-        public void chkNoClickChange()
-        {
-            kinectCtrl.doClick = !chkNoClick.IsChecked.Value;
-            Properties.Settings.Default.DoClick = kinectCtrl.doClick;
-            Properties.Settings.Default.Save();
-            Console.WriteLine("NoClick wurde verändert");
-        }
-
-        private void chkNoClick_Unchecked(object sender, RoutedEventArgs e)
-        {
-            chkNoClickChange();
-        }
-        #endregion
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             System.Environment.Exit(0);
-        }
-
-        private void CursorSmoothing_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (CursorSmoothing.IsLoaded)
-            {
-                kinectCtrl.cursorSmoothing = (float)CursorSmoothing.Value;
-                txtCursorSmoothing.Text = kinectCtrl.cursorSmoothing.ToString("f2");
-
-                Properties.Settings.Default.CursorSmoothing = kinectCtrl.cursorSmoothing;
-                Properties.Settings.Default.Save();
-
-                Console.WriteLine("CursorSmoothing wurde verändert");
-            }
         }
 
         #region Methoden für Kinect-Anzeige
@@ -188,6 +127,16 @@ namespace Mousenect
                     Console.WriteLine("FEHLER");
                     break;
             }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OpenSettings(object sender, RoutedEventArgs e)
+        {
+            settings.Show();
         }
     }
 }
