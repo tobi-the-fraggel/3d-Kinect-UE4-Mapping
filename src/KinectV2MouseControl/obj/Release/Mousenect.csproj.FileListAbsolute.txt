@@ -21,3 +21,25 @@ C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\o
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\SettingsWindow.g.cs
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\Mousenect_MarkupCompile.lref
 C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\SettingsWindow.baml
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\Mousenect.exe.config
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\Mousenect.exe
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\Mousenect.pdb
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\InputSimulator.dll
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\LightBuzz.Vitruvius.dll
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\Microsoft.Kinect.Face.dll
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\Microsoft.Kinect.xml
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\Microsoft.Kinect.Face.xml
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\Mousenect.csproj.ResolveComReference.cache
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\MainWindow.baml
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\MainWindow.g.cs
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\SettingsWindow.g.cs
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\App.g.cs
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\Mousenect_MarkupCompile.cache
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\Mousenect_MarkupCompile.lref
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\SettingsWindow.baml
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\Mousenect.g.resources
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\Mousenect.Properties.Resources.resources
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\Mousenect.csproj.GenerateResource.Cache
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\Mousenect.exe
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\Mousenect.pdb
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\bin\Release\Microsoft.Kinect.dll

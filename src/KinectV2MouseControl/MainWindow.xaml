@@ -16,7 +16,7 @@
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="Datei">
                     <MenuItem Header="Einstellungen" Click="OpenSettings"></MenuItem>
-                    <MenuItem Header="Beenden"></MenuItem>
+                    <MenuItem Header="Beenden" Click="App_Close"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="Steuerung umschalten">
                     <MenuItem Name="MI_Maus" Header="Maus" IsCheckable="True" IsChecked="True" Click="MenuItem_Click"></MenuItem>
@@ -26,22 +26,27 @@
                     <MenuItem Header="Unreal-Avateering"></MenuItem>
                 </MenuItem>
             </Menu>
-            <StatusBar Height="30" DockPanel.Dock="Bottom" VerticalAlignment="Bottom" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-            
-            </StatusBar>
         </DockPanel>
         <Grid Grid.Column="0">
-            
+
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition />
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Hand Left" Name="HL_State" Width="100" Background="White" Margin="10,0,340,0" />
-            <Label Grid.Row="0" Content="Gesture" Name="Gesture" Width="100" Background="White" />
-            <Label Grid.Row="0" Content="Hand Right" x:Name="HR_State" Width="100" Background="White" Margin="340,0,10,0" />
-            <controls:KinectViewer x:Name="viewer" Grid.Row="1"></controls:KinectViewer>
+            <StatusBar Background="LightGray" Height="40" Margin="0,387,10,0.333" Grid.RowSpan="2" Width="540">
+                <StatusBarItem HorizontalAlignment="Left" Width="240">
+                    <TextBlock Text="Hand Left" Name="HL_State" />
+                </StatusBarItem>
+                <StatusBarItem HorizontalAlignment="Center">
+                    <TextBlock Text="Gesture" Name="Gesture" />
+                </StatusBarItem>
+                <StatusBarItem HorizontalAlignment="Right">
+                    <TextBlock Text="Hand Right" x:Name="HR_State"/>
+                </StatusBarItem>
+            </StatusBar>
+            <controls:KinectViewer x:Name="viewer" Grid.Row="0" Margin="10,10,10,30"></controls:KinectViewer>
         </Grid>
     </Grid>
 </Window>

@@ -88,8 +88,8 @@ namespace Mousenect
                     if (closest != null)
                     {
                         viewer.DrawBody(closest);
-                        HL_State.Content = closest.HandLeftState.ToString();
-                        HR_State.Content = closest.HandRightState.ToString();
+                        HL_State.Text = closest.HandLeftState.ToString();
+                        HR_State.Text = closest.HandRightState.ToString();
                     }
                     else
                         viewer.Clear();
@@ -140,6 +140,11 @@ namespace Mousenect
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
             settings.Show();
+        }
+
+        private void App_Close(object sender, RoutedEventArgs e)
+        {
+            System.Environment.Exit(0);
         }
     }
 }

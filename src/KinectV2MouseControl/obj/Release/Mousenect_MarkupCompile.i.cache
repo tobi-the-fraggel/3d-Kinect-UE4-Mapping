@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\obj\Release\
 Mousenect
 none
 false
-TRACE
-C:\Users\mail\Desktop\GitHub\Mousenect---ModularMouse\src\KinectV2MouseControl\App.xaml
+CODE_ANALYSIS;TRACE
+C:\Users\Flo\Desktop\Projekt Mousenect\Mousenect---ModularMouse\src\KinectV2MouseControl\App.xaml
 2-649523810
 
-12-1503424160
-18-445400656
+12-1974832040
+16-542154339
 MainWindow.xaml;SettingsWindow.xaml;
 
 False
