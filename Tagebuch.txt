@@ -22,3 +22,11 @@
 - Die Geste zum Schließen (Lasso mit beiden Händen) muss nun 50 Frames gehalten werden
 - Einfügen von Konsolenausgaben zur Vereinfachung des Debuggings
 - Die Programm-Auswahl wurde implementiert (zwei Gesten für PowerPoint)
+
+---
+
+10.07.2017 2. Woche Montag
+- Neues Fenster für Einstellungen eingefügt
+
+ToDo morgen:
+- Settings einbinden

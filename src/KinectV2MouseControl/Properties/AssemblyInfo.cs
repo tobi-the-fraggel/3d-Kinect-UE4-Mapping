@@ -7,12 +7,12 @@ using System.Windows;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Kinect v2 Mouse Control")]
+[assembly: AssemblyTitle("Mousenect")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Kinect v2 Mouse Control")]
-[assembly: AssemblyCopyright("Copyright © Jingzhou Chen 2015")]
+[assembly: AssemblyProduct("Mousenect")]
+[assembly: AssemblyCopyright("Copyright © 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
