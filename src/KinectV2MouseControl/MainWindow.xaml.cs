@@ -2,6 +2,7 @@
 using Microsoft.Kinect;
 using LightBuzz.Vitruvius;
 using System;
+using System.Windows.Controls;
 
 namespace Mousenect
 {
@@ -110,28 +111,30 @@ namespace Mousenect
         }
         #endregion
 
-        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            switch (Programm_Auswahl.SelectedIndex)
-            {
-                case 0:
-                    kinectCtrl.setProgramm(1);
-                    Console.WriteLine("Maus wurde ausgewählt");
-                    break;
-                case 1:
-                    kinectCtrl.setProgramm(2);
-                    Console.WriteLine("Powerpoint wurde ausgewählt");
-                    break;
-                default:
-                    kinectCtrl.setProgramm(1);
-                    Console.WriteLine("FEHLER");
-                    break;
-            }
-        }
-
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
+            MenuItem mi = e.Source as MenuItem;
 
+            MI_Maus.IsChecked = false;
+            MI_PP.IsChecked = false;
+            MI_Zeichnung.IsChecked = false;
+
+                switch(mi.Header)
+            {
+                case "Maus":
+                    MI_Maus.IsChecked = true;
+                    kinectCtrl.setProgramm(1);
+                    break;
+                case "PowerPoint":
+                    MI_PP.IsChecked = true;
+                    kinectCtrl.setProgramm(2);
+                    break;
+                default:
+                    MI_Maus.IsChecked = true;
+                    kinectCtrl.setProgramm(1);
+                    Console.WriteLine("Fehler im MenuItem_Click");
+                    break;
+            }
         }
 
         private void OpenSettings(object sender, RoutedEventArgs e)

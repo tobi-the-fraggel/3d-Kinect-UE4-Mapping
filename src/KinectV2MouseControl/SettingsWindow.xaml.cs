@@ -88,5 +88,10 @@ namespace Mousenect
                 Console.WriteLine("CursorSmoothing wurde verändert");
             }
         }
+
+        private void btn_close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+        }
     }
 }

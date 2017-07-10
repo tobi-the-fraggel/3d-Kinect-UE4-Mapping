@@ -23,20 +23,15 @@
                     <MenuItem Header="Beenden"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="Steuerung umschalten">
-                    <MenuItem Header="Maus" IsCheckable="True" IsChecked="True" Click="MenuItem_Click"></MenuItem>
-                    <MenuItem Header="PowerPoint" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
-                    <MenuItem Header="Zeichnungen" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
+                    <MenuItem Name="MI_Maus" Header="Maus" IsCheckable="True" IsChecked="True" Click="MenuItem_Click"></MenuItem>
+                    <MenuItem Name="MI_PP" Header="PowerPoint" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
+                    <MenuItem Name="MI_Zeichnung" Header="Zeichnungen" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
                     <Separator></Separator>
                     <MenuItem Header="Unreal-Avateering"></MenuItem>
                 </MenuItem>
             </Menu>
         </DockPanel>
         <Grid Grid.Column="0" Grid.Row="1">
-            <ComboBox Name="Programm_Auswahl" SelectionChanged="ComboBox_SelectionChanged" HorizontalAlignment="Left" Margin="100,14,0,0" VerticalAlignment="Top" Width="180" Height="22">
-                <ComboBoxItem Content="Maus" HorizontalAlignment="Left" Width="178" Selector.IsSelected="True"/>
-                <ComboBoxItem Content="PowerPoint" HorizontalAlignment="Left" Width="178"/>
-            </ComboBox>
-            <Label Name="Status_Maus" Content="Steuerung von " HorizontalAlignment="Left" VerticalAlignment="Top" Width="118" Margin="10,10,0,0" Height="26"/>
         </Grid>
         <Grid Grid.Row="1"  Grid.Column="1">
             <Grid.RowDefinitions>
