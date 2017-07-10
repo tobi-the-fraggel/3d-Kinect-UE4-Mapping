@@ -8,10 +8,6 @@
         Title="Einstellungen" Height="498" Width="300"
         Loaded="Window_Loaded" ResizeMode="NoResize">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="47*"/>
-            <ColumnDefinition Width="99*"/>
-        </Grid.ColumnDefinitions>
         <Slider x:Name="MouseSensitivity" Margin="12,35,8,0" VerticalAlignment="Top" Height="26" Maximum="6" ValueChanged="MouseSensitivity_ValueChanged" Minimum="1" Value="3.5" Grid.ColumnSpan="2"/>
         <Label Content="Maus-Empfindlichkeit" Margin="12,5,8,0" VerticalAlignment="Top" Height="26" Grid.ColumnSpan="2"/>
         <TextBox x:Name="txtMouseSensitivity" Height="23" Margin="0,7,17,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="3.5" FontSize="15" TextAlignment="Right" HorizontalAlignment="Right" Grid.Column="1"/>

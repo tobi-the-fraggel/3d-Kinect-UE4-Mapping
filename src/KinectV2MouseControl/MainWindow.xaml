@@ -8,15 +8,11 @@
         Title="Mousenect" Height="455.5" Width="900" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner"
         Closing="Window_Closing" Unloaded="Window_Unloaded">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="350"/>
             <ColumnDefinition Width="550"/>
         </Grid.ColumnDefinitions>
-        <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
+        <DockPanel Grid.ColumnSpan="2">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="Datei">
                     <MenuItem Header="Einstellungen" Click="OpenSettings"></MenuItem>
@@ -30,10 +26,14 @@
                     <MenuItem Header="Unreal-Avateering"></MenuItem>
                 </MenuItem>
             </Menu>
+            <StatusBar Height="30" DockPanel.Dock="Bottom" VerticalAlignment="Bottom" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+            
+            </StatusBar>
         </DockPanel>
-        <Grid Grid.Column="0" Grid.Row="1">
+        <Grid Grid.Column="0">
+            
         </Grid>
-        <Grid Grid.Row="1"  Grid.Column="1">
+        <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition />
