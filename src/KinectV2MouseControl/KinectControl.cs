@@ -95,13 +95,18 @@ namespace Mousenect
             sensor.Open();
 
             //Vitruvius
-            _reader = sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Depth | FrameSourceTypes.Infrared | FrameSourceTypes.Body);
+            _reader = sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Body);
             _reader.MultiSourceFrameArrived += Reader_MultiSourceFrameArrived;
             gestureController = new GestureController();
             gestureController.GestureRecognized += GestureController_GestureRecognized;
         }
 
         #region Timer-Tick's
+        /// <summary>
+        /// Nach einer Sekunde ausgelöst um mehrere Gesten-Auslöser zu vermeiden
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_Tick(object sender, EventArgs e)
         {
             Console.WriteLine("Gesten-Pause vorbei");

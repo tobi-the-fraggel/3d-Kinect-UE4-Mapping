@@ -39,7 +39,6 @@ namespace Mousenect
             WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.RIGHT);
         }
 
-        
         [DllImport("user32.dll")]
         public static extern bool SetCursorPos(int X, int Y);
         [DllImport("user32.dll")]

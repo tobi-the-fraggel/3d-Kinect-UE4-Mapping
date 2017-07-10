@@ -5,17 +5,35 @@
         mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:controls="clr-namespace:LightBuzz.Vitruvius.Controls;assembly=LightBuzz.Vitruvius"
-        Title="Mousenect" Height="400" Width="900" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded"
+        Title="Mousenect" Height="455.5" Width="900" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded"
         Closing="Window_Closing" Unloaded="Window_Unloaded">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="350"/>
             <ColumnDefinition Width="550"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
+        <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="Datei">
+                    <MenuItem Header="Einstellungen"></MenuItem>
+                    <MenuItem Header="Beenden"></MenuItem>
+                </MenuItem>
+                <MenuItem Header="Steuerung umschalten">
+                    <MenuItem Header="Maus"></MenuItem>
+                    <MenuItem Header="PowerPoint"></MenuItem>
+                    <MenuItem Header="Zeichnungen"></MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="Unreal-Avateering"></MenuItem>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <Grid Grid.Column="0" Grid.Row="1">
             <Slider x:Name="MouseSensitivity" Margin="10,73,10,0" VerticalAlignment="Top" Height="26" Maximum="6" ValueChanged="MouseSensitivity_ValueChanged" Minimum="1" Value="3.5"/>
             <Label Content="Mouse Sensitivity" Margin="10,43,118,0" VerticalAlignment="Top" Height="26"/>
-
             <TextBox x:Name="txtMouseSensitivity" Height="23" Margin="0,45,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="3.5" FontSize="15" TextAlignment="Right" HorizontalAlignment="Right" Width="78"/>
             <Button x:Name="btnDefault" Content="Auf Standard zurücksetzen" HorizontalAlignment="Right" Margin="0,163,173,0" Width="167" Click="btnDefault_Click" Height="24" VerticalAlignment="Top"/>
             <CheckBox x:Name="chkNoClick" Content="Keine Mausklicks" HorizontalAlignment="Left" Margin="212,163,0,0" Height="16" VerticalAlignment="Top" Checked="chkNoClick_Checked" Unchecked="chkNoClick_Unchecked" Width="116"/>
@@ -28,7 +46,7 @@
             </ComboBox>
             <Label Name="Status_Maus" Content="Steuerung von " HorizontalAlignment="Left" VerticalAlignment="Top" Width="118" Margin="10,10,0,0" Height="26"/>
         </Grid>
-        <Grid Grid.Column="1">
+        <Grid Grid.Row="1"  Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition />
@@ -36,7 +54,7 @@
             <Label Grid.Row="0" Content="Hand Left" Name="HL_State" Width="100" Background="White" Margin="10,0,340,0" />
             <Label Grid.Row="0" Content="Gesture" Name="Gesture" Width="100" Background="White" />
             <Label Grid.Row="0" Content="Hand Right" x:Name="HR_State" Width="100" Background="White" Margin="340,0,10,0" />
-            <controls:KinectViewer Grid.Row="1" x:Name="viewer"/>
+            <controls:KinectViewer x:Name="viewer" Grid.Row="1"></controls:KinectViewer>
         </Grid>
     </Grid>
 </Window>
