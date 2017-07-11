@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Threading;
 using Microsoft.Kinect;
 using LightBuzz.Vitruvius;
+using System.ComponentModel;
 
 namespace Mousenect
 {
@@ -60,6 +61,7 @@ namespace Mousenect
         /// </summary>
         bool wasGesture = false;
         bool wasDoubleLasso = false;
+        int GestureCount = 0;
         int DoubleLassoCount = 0;
         int GripCount = 0;
         /// <summary>
@@ -176,7 +178,7 @@ namespace Mousenect
                             else
                             {
                                 DoubleLassoCount++;
-                                if (DoubleLassoCount > 50)
+                                if (DoubleLassoCount > 30)
                                     System.Environment.Exit(0);
                             }
                         }
@@ -186,16 +188,17 @@ namespace Mousenect
                             DoubleLassoCount = 0;
                         }
 
+                        // Positionen der linken, rechten Hand und Rücken auslesen
+                        CameraSpacePoint handLeft = body.Joints[JointType.HandLeft].Position;
+                        CameraSpacePoint handRight = body.Joints[JointType.HandRight].Position;
+                        CameraSpacePoint spineBase = body.Joints[JointType.SpineBase].Position;
+
+                        //MausSteuerung
                         if (Programm == 1)
                         {
                             //Wenn Hände erkannt -> Maus-Zeiger bewegen
                             if (body.HandRightState != HandState.Unknown && body.HandRightState != HandState.NotTracked) // Rechte Hand muss getrackt sein
                             {
-                                // Positionen der linken, rechten Hand und Rücken auslesen
-                                CameraSpacePoint handLeft = body.Joints[JointType.HandLeft].Position;
-                                CameraSpacePoint handRight = body.Joints[JointType.HandRight].Position;
-                                CameraSpacePoint spineBase = body.Joints[JointType.SpineBase].Position;
-
                                 /* hand x calculated by this. we don't use shoulder right as a reference cause the shoulder right
                                  * is usually behind the lift right hand, and the position would be inferred and unstable.
                                  * because the spine base is on the left of right hand, we plus 0.05f to make it closer to the right. */
@@ -248,11 +251,49 @@ namespace Mousenect
                                     }
                                 }
                             } // Ende der Maus-Bewegung
-                            //PowerPoint-Steuerung
-                            else if(Programm == 2)
+                        }
+                        //PowerPoint-Steuerung
+                        else if (Programm == 2)
+                        {
+                            if (handLeft.Z - spineBase.Z < -0.15f) // if left hand lift forward
                             {
-
+                                if(body.HandLeftState == HandState.Open)
+                                {
+                                    GestureCount++;
+                                    if (GestureCount > 30)
+                                    {
+                                        InputControl.PressLeftArrowKey();
+                                        Console.WriteLine("PowerPoint: Pfeiltaste LINKS");
+                                        GestureCount = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    GestureCount = 0;
+                                }
                             }
+                            else if (handRight.Z - spineBase.Z < -0.15f) // if right hand lift forward
+                            {
+                                if (body.HandRightState == HandState.Open)
+                                {
+                                    GestureCount++;
+                                    if (GestureCount > 30)
+                                    {
+                                        InputControl.PressRightArrowKey();
+                                        Console.WriteLine("PowerPoint: Pfeiltaste RECHTS");
+                                        GestureCount = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    GestureCount = 0;
+                                }
+                            }
+                            else
+                            {
+                                GestureCount = 0;
+                            }
+
                         }
                     }
                 }

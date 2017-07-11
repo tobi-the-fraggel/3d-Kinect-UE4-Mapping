@@ -27,6 +27,6 @@
 
 10.07.2017 2. Woche Montag
 - Neues Fenster für Einstellungen eingefügt
+- GUI überarbeitet
 
-ToDo morgen:
-- Settings einbinden
+11.07.2017
