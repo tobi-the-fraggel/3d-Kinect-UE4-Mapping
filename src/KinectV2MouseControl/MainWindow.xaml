@@ -39,14 +39,21 @@
                 <RowDefinition/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <StatusBar Background="LightGray" Height="40" Margin="0,387,10,0.333" Grid.RowSpan="2" Width="540">
-                <StatusBarItem HorizontalAlignment="Left" Width="240">
+            <StatusBar Height="40" Margin="0,387,10,0.333" Grid.RowSpan="2" Width="540">
+                <StatusBar.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </StatusBar.ItemsPanel>
+                <StatusBarItem HorizontalAlignment="Center" Grid.Column="0">
                     <TextBlock Text="Hand Left" Name="HL_State" />
                 </StatusBarItem>
-                <StatusBarItem HorizontalAlignment="Center">
-                    <TextBlock Text="Gesture" Name="Gesture" />
-                </StatusBarItem>
-                <StatusBarItem HorizontalAlignment="Right">
+                <StatusBarItem HorizontalAlignment="Center" Grid.Column="1">
                     <TextBlock Text="Hand Right" x:Name="HR_State"/>
                 </StatusBarItem>
             </StatusBar>
