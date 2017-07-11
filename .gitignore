@@ -1,3 +1,5 @@
 # Ignoring VS binaries
 bin/
 obj/
+.vs/
+
