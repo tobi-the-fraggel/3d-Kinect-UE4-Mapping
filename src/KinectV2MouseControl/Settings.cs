@@ -1,4 +1,7 @@
-﻿namespace Mousenect.Properties {
+﻿using System;
+using System.ComponentModel;
+
+namespace Mousenect.Properties {
     
     
     // Diese Klasse ermöglicht die Behandlung bestimmter Ereignisse der Einstellungsklasse:
@@ -9,14 +12,14 @@
     internal sealed partial class Settings {
         
         public Settings() {
-            // // Heben Sie die Auskommentierung der unten angezeigten Zeilen auf, um Ereignishandler zum Speichern und Ändern von Einstellungen hinzuzufügen:
-            //
-            // this.SettingChanging += this.SettingChangingEventHandler;
-            //
-            // this.SettingsSaving += this.SettingsSavingEventHandler;
-            //
+            this.PropertyChanged += this.PropertyChangedEventHandler;
         }
-        
+
+        private void PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+        {
+            
+        }
+
         private void SettingChangingEventHandler(object sender, System.Configuration.SettingChangingEventArgs e) {
             // Fügen Sie hier Code zum Behandeln des SettingChangingEvent-Ereignisses hinzu.
         }

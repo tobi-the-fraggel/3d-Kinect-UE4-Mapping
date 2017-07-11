@@ -31,11 +31,13 @@ namespace Mousenect
         private int _height = 0;
         private byte[] _pixels = null;
         private WriteableBitmap _bitmap = null;
+        private KinectControl kinectCtrl;
 
         public DrawingWindow(KinectControl kinectCtrl)
         {
             InitializeComponent();
 
+            this.kinectCtrl = kinectCtrl;
             _sensor = kinectCtrl.sensor;
 
             if (_sensor != null)
@@ -61,6 +63,11 @@ namespace Mousenect
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            Properties.Settings.Default.Programm = 1;
+            Properties.Settings.Default.Steering_Active = false;
+            Properties.Settings.Default.Save();
+
+            //kinectCtrl.setSteeringActive(false);
             if (_colorReader != null)
             {
                 _colorReader.Dispose();

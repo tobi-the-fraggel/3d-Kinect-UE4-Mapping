@@ -58,5 +58,29 @@ namespace Mousenect.Properties {
                 this["DoClick"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public byte Programm {
+            get {
+                return ((byte)(this["Programm"]));
+            }
+            set {
+                this["Programm"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Steering_Active {
+            get {
+                return ((bool)(this["Steering_Active"]));
+            }
+            set {
+                this["Steering_Active"] = value;
+            }
+        }
     }
 }

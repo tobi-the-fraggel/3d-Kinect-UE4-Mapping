@@ -4,6 +4,7 @@ using LightBuzz.Vitruvius;
 using System;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.ComponentModel;
 
 namespace Mousenect
 {
@@ -22,7 +23,8 @@ namespace Mousenect
             InitializeComponent();
 
             _sensor = kinectCtrl.sensor;
-            settings = new SettingsWindow(kinectCtrl);
+            settings = new SettingsWindow();
+            Properties.Settings.Default.PropertyChanged += MainWindow_PropertyChanged;
 
             if (_sensor != null)
             {
@@ -35,6 +37,52 @@ namespace Mousenect
                 _playersController.BodyEntered += UserReporter_BodyEntered;
                 _playersController.BodyLeft += UserReporter_BodyLeft;
                 _playersController.Start();
+            }
+        }
+
+        private void MainWindow_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Programm")
+            {
+                MI_Maus.IsChecked = false;
+                MI_PP.IsChecked = false;
+                MI_Zeichnung.IsChecked = false;
+
+                switch (Properties.Settings.Default.Programm)
+                {
+                    case 1:
+                        MI_Maus.IsChecked = true;
+                        break;
+                    case 2:
+                        MI_PP.IsChecked = true;
+                        break;
+                    case 3:
+                        MI_Zeichnung.IsChecked = true;
+                        break;
+                    default:
+                        Console.WriteLine("FEHLER Programm war über der Anzahl");
+                        MI_Maus.IsChecked = true;
+                        Properties.Settings.Default.Programm = 1;
+                        break;
+                }
+
+                Properties.Settings.Default.Steering_Active = false;
+                Properties.Settings.Default.Save();
+
+            }
+            else if(e.PropertyName == "Steering_Active")
+            {
+                if(Properties.Settings.Default.Steering_Active == false)
+                {
+                    btn_activate.Background = Brushes.ForestGreen;
+                    btn_activate.Content = "Steuerung aktivieren";
+                }
+                else
+                {
+                    btn_activate.Background = Brushes.Red;
+                    btn_activate.Content = "Steuerung deaktivieren";
+                }
+
             }
         }
 
@@ -56,7 +104,7 @@ namespace Mousenect
             }
         }
 
-        
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             System.Environment.Exit(0);
@@ -118,34 +166,24 @@ namespace Mousenect
         {
             MenuItem mi = e.Source as MenuItem;
 
-            MI_Maus.IsChecked = false;
-            MI_PP.IsChecked = false;
-            MI_Zeichnung.IsChecked = false;
-
-            kinectCtrl.setSteeringActive(false);
-            btn_activate.Background = Brushes.ForestGreen;
-            btn_activate.Content = "Steuerung aktivieren";
-
             switch (mi.Header)
             {
                 case "Maus":
-                    MI_Maus.IsChecked = true;
-                    kinectCtrl.setProgramm(1);
+                    Properties.Settings.Default.Programm = 1;
                     break;
                 case "PowerPoint":
-                    MI_PP.IsChecked = true;
-                    kinectCtrl.setProgramm(2);
+                    Properties.Settings.Default.Programm = 2;
                     break;
                 case "Zeichnen":
-                    MI_Zeichnung.IsChecked = true;
-                    kinectCtrl.setProgramm(3);
+                    Properties.Settings.Default.Programm = 3;
                     break;
                 default:
-                    MI_Maus.IsChecked = true;
-                    kinectCtrl.setProgramm(1);
+                    Properties.Settings.Default.Programm = 1;
                     Console.WriteLine("Fehler im MenuItem_Click");
                     break;
             }
+
+            Properties.Settings.Default.Save();
         }
 
         //Einstellungen öffnen
@@ -161,25 +199,14 @@ namespace Mousenect
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            kinectCtrl.setSteeringActive(false);
-            kinectCtrl.setProgramm(1);
+            //Defaults
+            Properties.Settings.Default.Steering_Active = false;
+            Properties.Settings.Default.Programm = 1;
         }
 
         private void btn_activate_Click(object sender, RoutedEventArgs e)
         {
-            Button btn = e.Source as Button;
-            if(btn.Content.ToString() == "Steuerung aktivieren")
-            {
-                kinectCtrl.setSteeringActive(true);
-                btn_activate.Background = Brushes.Red;
-                btn_activate.Content = "Steuerung deaktivieren";
-            }
-            else
-            {
-                kinectCtrl.setSteeringActive(false);
-                btn_activate.Background = Brushes.ForestGreen;
-                btn_activate.Content = "Steuerung aktivieren";
-            }
+            Properties.Settings.Default.Steering_Active = !Properties.Settings.Default.Steering_Active;
         }
     }
 }

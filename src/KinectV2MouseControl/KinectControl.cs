@@ -87,13 +87,17 @@ namespace Mousenect
             screenWidth = (int)SystemParameters.PrimaryScreenWidth;
             screenHeight = (int)SystemParameters.PrimaryScreenHeight;
 
+            //PropertyChanged Event verknüpfen
+            Properties.Settings.Default.PropertyChanged += KinectControl_PropertyChanged;
+
+
             #region Timer-Setup
             timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             timer.Tick += new EventHandler(Timer_Tick);
             #endregion
 
             //Default für Programm (Maus)
-            Programm = 1;
+            Programm = Properties.Settings.Default.Programm;
 
             // open the sensor
             sensor.Open();
@@ -103,6 +107,42 @@ namespace Mousenect
             _reader.MultiSourceFrameArrived += Reader_MultiSourceFrameArrived;
             gestureController = new GestureController();
             gestureController.GestureRecognized += GestureController_GestureRecognized;
+        }
+
+        private void KinectControl_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == "CursorSmoothing")
+            {
+                this.cursorSmoothing = Properties.Settings.Default.CursorSmoothing;
+                Console.WriteLine("KinectControl: CursorSmoothing geändert auf " + this.cursorSmoothing);
+            }
+            else if(e.PropertyName == "MouseSensitivity")
+            {
+                this.mouseSensitivity = Properties.Settings.Default.MouseSensitivity;
+                Console.WriteLine("KinectControl: MouseSensitivity geändert auf " + this.mouseSensitivity);
+            }
+            else if(e.PropertyName == "DoClick")
+            {
+                this.doClick = Properties.Settings.Default.DoClick;
+                Console.WriteLine("KinectControl: DoClick geändert auf " + this.doClick);
+            }
+            else if(e.PropertyName == "Programm")
+            {
+                this.Programm = Properties.Settings.Default.Programm;
+                Console.WriteLine("KinectControl: Programm geändert auf " + this.Programm);
+
+                if(this.Programm == 3)
+                {
+                    drawing = new DrawingWindow(this);
+                    drawing.Show();
+                    Console.WriteLine("DrawingWindow geöffnet");
+                }
+            }
+            else if(e.PropertyName == "Steering_Active")
+            {
+                this.Steering_Active = Properties.Settings.Default.Steering_Active;
+                Console.WriteLine("KinectControl: SteeringActive geändert auf " + this.Steering_Active);
+            }
         }
 
         #region Timer-Tick's
@@ -310,35 +350,5 @@ namespace Mousenect
                 }
             }
         }
-
-        public void setProgramm(byte Auswahl)
-        {
-            this.Programm = Auswahl;
-            Console.WriteLine("Kinect-Control hat Programm geändert: " + Auswahl);
-
-            if(this.Programm == 3)
-            {
-                drawing = new DrawingWindow(this);
-                drawing.Show();
-                Console.WriteLine("DrawingWindows geöffnet");
-                Steering_Active = true;
-            }
-        }
-
-        public void setSteeringActive(bool flag)
-        {
-            this.Steering_Active = flag;
-            Console.WriteLine("Steuerung-Aktiv wurde zu" + flag);
-        }
-
-        public void Close()
-        {
-            if (this.sensor != null)
-            {
-                this.sensor.Close();
-                this.sensor = null;
-            }
-        }
-
     }
 }
