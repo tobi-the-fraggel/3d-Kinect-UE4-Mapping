@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="CursorSmoothing" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">0.2</Value>
+      <Value Profile="(Default)">0.5</Value>
     </Setting>
     <Setting Name="MouseSensitivity" Type="System.Single" Scope="User">
       <Value Profile="(Default)">3.5</Value>

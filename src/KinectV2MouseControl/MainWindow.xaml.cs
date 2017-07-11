@@ -55,6 +55,7 @@ namespace Mousenect
             }
         }
 
+        
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             System.Environment.Exit(0);
@@ -111,6 +112,7 @@ namespace Mousenect
         }
         #endregion
 
+        //Programmauswahl über Menü
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             MenuItem mi = e.Source as MenuItem;
@@ -137,6 +139,7 @@ namespace Mousenect
             }
         }
 
+        //Einstellungen öffnen
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
             settings.Show();
@@ -145,6 +148,11 @@ namespace Mousenect
         private void App_Close(object sender, RoutedEventArgs e)
         {
             System.Environment.Exit(0);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
