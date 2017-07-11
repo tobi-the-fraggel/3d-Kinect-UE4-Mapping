@@ -64,6 +64,12 @@ namespace Mousenect
         int GestureCount = 0;
         int DoubleLassoCount = 0;
         int GripCount = 0;
+
+        /// <summary>
+        /// Variable zum aktivieren/deaktivieren der Steuerung
+        /// </summary>
+        bool Steering_Active = false;
+
         /// <summary>
         /// Variable zur Steuerung verschiedener Programme
         /// Maus = 1
@@ -152,118 +158,143 @@ namespace Mousenect
         /// <param name="e"></param>
         void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
         {
-            var reference = e.FrameReference.AcquireFrame();
-            // Body
-            using (var frame = reference.BodyFrameReference.AcquireFrame())
+            //Steuerung aktiv
+            if (Steering_Active)
             {
-                if (frame != null)
+                var reference = e.FrameReference.AcquireFrame();
+                // Body
+                using (var frame = reference.BodyFrameReference.AcquireFrame())
                 {
-                    //Den Closest Body wählen
-                    Body body = frame.Bodies().Closest();
-
-                    // get closest tracked body only, notice there's a break below.
-                    if (body != null)
+                    if (frame != null)
                     {
-                        //Gesture-Controller das neuste Frame liefern
-                        gestureController.Update(body);
+                        //Den Closest Body wählen
+                        Body body = frame.Bodies().Closest();
 
-                        //2x Lasso zum beenden der Anwendung muss 50 Frames gehalten werden
-                        if (body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Lasso)
+                        // get closest tracked body only, notice there's a break below.
+                        if (body != null)
                         {
-                            if (!wasDoubleLasso)
+                            //Gesture-Controller das neuste Frame liefern
+                            gestureController.Update(body);
+
+                            //2x Lasso zum beenden der Anwendung muss 50 Frames gehalten werden
+                            if (body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Lasso)
                             {
-                                wasDoubleLasso = true;
+                                if (!wasDoubleLasso)
+                                {
+                                    wasDoubleLasso = true;
+                                    DoubleLassoCount = 0;
+                                }
+                                else
+                                {
+                                    DoubleLassoCount++;
+                                    if (DoubleLassoCount > 30)
+                                        System.Environment.Exit(0);
+                                }
+                            }
+                            else
+                            {
+                                wasDoubleLasso = false;
                                 DoubleLassoCount = 0;
                             }
-                            else
+
+                            // Positionen der linken, rechten Hand und Rücken auslesen
+                            CameraSpacePoint handLeft = body.Joints[JointType.HandLeft].Position;
+                            CameraSpacePoint handRight = body.Joints[JointType.HandRight].Position;
+                            CameraSpacePoint spineBase = body.Joints[JointType.SpineBase].Position;
+
+                            //MausSteuerung
+                            if (Programm == 1)
                             {
-                                DoubleLassoCount++;
-                                if (DoubleLassoCount > 30)
-                                    System.Environment.Exit(0);
-                            }
-                        }
-                        else
-                        {
-                            wasDoubleLasso = false;
-                            DoubleLassoCount = 0;
-                        }
-
-                        // Positionen der linken, rechten Hand und Rücken auslesen
-                        CameraSpacePoint handLeft = body.Joints[JointType.HandLeft].Position;
-                        CameraSpacePoint handRight = body.Joints[JointType.HandRight].Position;
-                        CameraSpacePoint spineBase = body.Joints[JointType.SpineBase].Position;
-
-                        //MausSteuerung
-                        if (Programm == 1)
-                        {
-                            //Wenn Hände erkannt -> Maus-Zeiger bewegen
-                            if (body.HandRightState != HandState.Unknown && body.HandRightState != HandState.NotTracked) // Rechte Hand muss getrackt sein
-                            {
-                                /* hand x calculated by this. we don't use shoulder right as a reference cause the shoulder right
-                                 * is usually behind the lift right hand, and the position would be inferred and unstable.
-                                 * because the spine base is on the left of right hand, we plus 0.05f to make it closer to the right. */
-                                float x = handRight.X - spineBase.X + 0.05f;
-                                /* hand y calculated by this. ss spine base is way lower than right hand, we plus 0.51f to make it
-                                 * higher, the value 0.51f is worked out by testing for a several times, you can set it as another one you like. */
-                                float y = spineBase.Y - handRight.Y + 0.51f;
-                                // get current cursor position
-                                Point curPos = InputControl.GetCursorPosition();
-                                // smoothing for using should be 0 - 0.95f. The way we smooth the cusor is: oldPos + (newPos - oldPos) * smoothValue
-                                float smoothing = 1 - cursorSmoothing;
-                                // set cursor position
-                                InputControl.SetCursorPos((int)(curPos.X + (x * mouseSensitivity * screenWidth - curPos.X) * smoothing), (int)(curPos.Y + ((y + 0.25f) * mouseSensitivity * screenHeight - curPos.Y) * smoothing));
-
-                                // Grip gesture
-                                if (doClick)
+                                //Wenn Hände erkannt -> Maus-Zeiger bewegen
+                                if (body.HandRightState != HandState.Unknown && body.HandRightState != HandState.NotTracked) // Rechte Hand muss getrackt sein
                                 {
-                                    if (body.HandLeftState == HandState.Closed)
+                                    /* hand x calculated by this. we don't use shoulder right as a reference cause the shoulder right
+                                     * is usually behind the lift right hand, and the position would be inferred and unstable.
+                                     * because the spine base is on the left of right hand, we plus 0.05f to make it closer to the right. */
+                                    float x = handRight.X - spineBase.X + 0.05f;
+                                    /* hand y calculated by this. ss spine base is way lower than right hand, we plus 0.51f to make it
+                                     * higher, the value 0.51f is worked out by testing for a several times, you can set it as another one you like. */
+                                    float y = spineBase.Y - handRight.Y + 0.51f;
+                                    // get current cursor position
+                                    Point curPos = InputControl.GetCursorPosition();
+                                    // smoothing for using should be 0 - 0.95f. The way we smooth the cusor is: oldPos + (newPos - oldPos) * smoothValue
+                                    float smoothing = 1 - cursorSmoothing;
+                                    // set cursor position
+                                    InputControl.SetCursorPos((int)(curPos.X + (x * mouseSensitivity * screenWidth - curPos.X) * smoothing), (int)(curPos.Y + ((y + 0.25f) * mouseSensitivity * screenHeight - curPos.Y) * smoothing));
+
+                                    // Grip gesture
+                                    if (doClick)
                                     {
-                                        if (!wasLeftGrip)
+                                        if (body.HandLeftState == HandState.Closed)
                                         {
-                                            GripCount = 0;
-                                        }
-                                        else
-                                        {
-                                            GripCount++;
-                                            if(GripCount > 50)
+                                            if (!wasLeftGrip)
                                             {
-                                                InputControl.MouseLeftDown();
+                                                GripCount = 0;
                                             }
+                                            else
+                                            {
+                                                GripCount++;
+                                                if (GripCount > 50)
+                                                {
+                                                    InputControl.MouseLeftDown();
+                                                }
+                                            }
+                                            wasLeftGrip = true;
                                         }
-                                        wasLeftGrip = true;
+                                        else if (body.HandLeftState == HandState.Open)
+                                        {
+                                            if (wasLeftGrip)
+                                            {
+                                                if (GripCount <= 50)
+                                                {
+                                                    InputControl.DoMouseClick();
+                                                }
+                                                GripCount = 0;
+                                                InputControl.MouseLeftUp();
+                                            }
+                                            else
+                                            {
+                                                GripCount = 0;
+                                            }
+                                            wasLeftGrip = false;
+                                        }
                                     }
-                                    else if (body.HandLeftState == HandState.Open)
+                                } // Ende der Maus-Bewegung
+                            }
+                            //PowerPoint-Steuerung
+                            else if (Programm == 2)
+                            {
+                                if (handLeft.Z - spineBase.Z < -0.15f) // if left hand lift forward
+                                {
+                                    if (body.HandLeftState == HandState.Open)
                                     {
-                                        if (wasLeftGrip)
+                                        GestureCount++;
+                                        if (GestureCount > 30)
                                         {
-                                            if(GripCount <= 50)
-                                            {
-                                                InputControl.DoMouseClick();
-                                            }
-                                            GripCount = 0;
-                                            InputControl.MouseLeftUp();
+                                            InputControl.PressLeftArrowKey();
+                                            Console.WriteLine("PowerPoint: Pfeiltaste LINKS");
+                                            GestureCount = 0;
                                         }
-                                        else
-                                        {
-                                            GripCount = 0;
-                                        }
-                                        wasLeftGrip = false;
+                                    }
+                                    else
+                                    {
+                                        GestureCount = 0;
                                     }
                                 }
-                            } // Ende der Maus-Bewegung
-                        }
-                        //PowerPoint-Steuerung
-                        else if (Programm == 2)
-                        {
-                            if (handLeft.Z - spineBase.Z < -0.15f) // if left hand lift forward
-                            {
-                                if(body.HandLeftState == HandState.Open)
+                                else if (handRight.Z - spineBase.Z < -0.15f) // if right hand lift forward
                                 {
-                                    GestureCount++;
-                                    if (GestureCount > 30)
+                                    if (body.HandRightState == HandState.Open)
                                     {
-                                        InputControl.PressLeftArrowKey();
-                                        Console.WriteLine("PowerPoint: Pfeiltaste LINKS");
+                                        GestureCount++;
+                                        if (GestureCount > 30)
+                                        {
+                                            InputControl.PressRightArrowKey();
+                                            Console.WriteLine("PowerPoint: Pfeiltaste RECHTS");
+                                            GestureCount = 0;
+                                        }
+                                    }
+                                    else
+                                    {
                                         GestureCount = 0;
                                     }
                                 }
@@ -271,29 +302,8 @@ namespace Mousenect
                                 {
                                     GestureCount = 0;
                                 }
-                            }
-                            else if (handRight.Z - spineBase.Z < -0.15f) // if right hand lift forward
-                            {
-                                if (body.HandRightState == HandState.Open)
-                                {
-                                    GestureCount++;
-                                    if (GestureCount > 30)
-                                    {
-                                        InputControl.PressRightArrowKey();
-                                        Console.WriteLine("PowerPoint: Pfeiltaste RECHTS");
-                                        GestureCount = 0;
-                                    }
-                                }
-                                else
-                                {
-                                    GestureCount = 0;
-                                }
-                            }
-                            else
-                            {
-                                GestureCount = 0;
-                            }
 
+                            }
                         }
                     }
                 }
@@ -304,6 +314,12 @@ namespace Mousenect
         {
             this.Programm = Auswahl;
             Console.WriteLine("Kinect-Control hat Programm geändert: " + Auswahl);
+        }
+
+        public void setSteeringActive(bool flag)
+        {
+            this.Steering_Active = flag;
+            Console.WriteLine("Steuerung-Aktiv wurde zu" + flag);
         }
 
         public void Close()

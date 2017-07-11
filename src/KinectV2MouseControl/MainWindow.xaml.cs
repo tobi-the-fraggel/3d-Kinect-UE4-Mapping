@@ -3,6 +3,7 @@ using Microsoft.Kinect;
 using LightBuzz.Vitruvius;
 using System;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Mousenect
 {
@@ -121,6 +122,8 @@ namespace Mousenect
             MI_PP.IsChecked = false;
             MI_Zeichnung.IsChecked = false;
 
+            kinectCtrl.setSteeringActive(false);
+
                 switch(mi.Header)
             {
                 case "Maus":
@@ -130,6 +133,10 @@ namespace Mousenect
                 case "PowerPoint":
                     MI_PP.IsChecked = true;
                     kinectCtrl.setProgramm(2);
+                    break;
+                case "Zeichnen":
+                    MI_Zeichnung.IsChecked = true;
+                    kinectCtrl.setProgramm(3);
                     break;
                 default:
                     MI_Maus.IsChecked = true;
@@ -152,7 +159,25 @@ namespace Mousenect
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            kinectCtrl.setSteeringActive(false);
+            kinectCtrl.setProgramm(1);
+        }
 
+        private void btn_activate_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = e.Source as Button;
+            if(btn.Content.ToString() == "Steuerung aktivieren")
+            {
+                kinectCtrl.setSteeringActive(true);
+                btn_activate.Background = Brushes.Red;
+                btn_activate.Content = "Steuerung deaktivieren";
+            }
+            else
+            {
+                kinectCtrl.setSteeringActive(false);
+                btn_activate.Background = Brushes.ForestGreen;
+                btn_activate.Content = "Steuerung aktivieren";
+            }
         }
     }
 }

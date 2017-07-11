@@ -21,14 +21,18 @@
                 <MenuItem Header="Steuerung umschalten">
                     <MenuItem Name="MI_Maus" Header="Maus" IsCheckable="True" Click="MenuItem_Click" IsChecked="True"></MenuItem>
                     <MenuItem Name="MI_PP" Header="PowerPoint" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
-                    <MenuItem Name="MI_Zeichnung" Header="Zeichnungen" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
+                    <MenuItem Name="MI_Zeichnung" Header="Zeichnen" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
                     <Separator></Separator>
                     <MenuItem Header="Unreal-Avateering"></MenuItem>
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <Grid Grid.Column="0" Margin="10,0,0,0">
-            <Button Name="btn_activate" Content="Steuerung aktivieren" Height="50"></Button>
+        <Grid Grid.Column="0" Margin="10,40,0,0">
+            <StackPanel>
+            <Button Name="btn_activate" Background="ForestGreen" Content="Steuerung aktivieren" Click="btn_activate_Click" VerticalAlignment="Top" Height="50"></Button>
+            <Button Name="leer1" Content="Leer" VerticalAlignment="Top" Height="50"></Button>
+            <Button Name="leer2" Content="Leer" VerticalAlignment="Top" Height="50"></Button>
+            </StackPanel>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
