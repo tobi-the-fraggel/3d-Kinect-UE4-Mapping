@@ -76,6 +76,7 @@ namespace Mousenect
         /// Powerpoint = 2
         /// </summary>
         public byte Programm = 1;
+        DrawingWindow drawing = null;
 
         public KinectControl()
         {
@@ -314,6 +315,14 @@ namespace Mousenect
         {
             this.Programm = Auswahl;
             Console.WriteLine("Kinect-Control hat Programm geändert: " + Auswahl);
+
+            if(this.Programm == 3)
+            {
+                drawing = new DrawingWindow(this);
+                drawing.Show();
+                Console.WriteLine("DrawingWindows geöffnet");
+                Steering_Active = true;
+            }
         }
 
         public void setSteeringActive(bool flag)

@@ -123,8 +123,10 @@ namespace Mousenect
             MI_Zeichnung.IsChecked = false;
 
             kinectCtrl.setSteeringActive(false);
+            btn_activate.Background = Brushes.ForestGreen;
+            btn_activate.Content = "Steuerung aktivieren";
 
-                switch(mi.Header)
+            switch (mi.Header)
             {
                 case "Maus":
                     MI_Maus.IsChecked = true;
