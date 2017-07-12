@@ -168,6 +168,7 @@ namespace Mousenect
                         viewer.DrawBody(closest);
                         HL_State.Text = closest.HandLeftState.ToString();
                         HR_State.Text = closest.HandRightState.ToString();
+                        Heigth.Text = "Persongröße: " + closest.Height().ToString("f2");
                     }
                     else
                         viewer.Clear();

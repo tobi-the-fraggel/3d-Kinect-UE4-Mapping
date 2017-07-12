@@ -40,14 +40,15 @@
                 <RowDefinition/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <StatusBar Height="40" Margin="0,387,10,0.333" Grid.RowSpan="2" Width="540">
+            <StatusBar Height="40" Margin="0,387,30,0.333" Grid.RowSpan="2" >
                 <StatusBar.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="33*"/>
-                                <ColumnDefinition Width="33*"/>
-                                <ColumnDefinition Width="33*"/>
+                                <ColumnDefinition Width="25*"/>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="25*"/>
                             </Grid.ColumnDefinitions>
                         </Grid>
                     </ItemsPanelTemplate>
@@ -58,7 +59,10 @@
                 <StatusBarItem HorizontalAlignment="Center" Grid.Column="1">
                     <TextBlock Text="Visual" Name="Visual"/>
                 </StatusBarItem>
-                <StatusBarItem HorizontalAlignment="Center" Grid.Column="2">
+                <StatusBarItem Grid.Column="2">
+                    <TextBlock Text="Persongröße: " x:Name="Heigth"/>
+                </StatusBarItem>
+                <StatusBarItem HorizontalAlignment="Center" Grid.Column="3">
                     <TextBlock Text="Hand Right" x:Name="HR_State"/>
                 </StatusBarItem>
             </StatusBar>
