@@ -9,8 +9,8 @@
         Closing="Window_Closing" Unloaded="Window_Unloaded" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="350"/>
-            <ColumnDefinition Width="550"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <DockPanel Grid.ColumnSpan="2">
             <Menu DockPanel.Dock="Top">
@@ -69,16 +69,23 @@
                     <TextBlock Text="Hand Right" x:Name="HR_State"/>
                 </StatusBarItem>
             </StatusBar>
-            <Grid Grid.Row="0" Margin="10,10,30,30">
-                <controls:KinectViewer x:Name="viewer" />
-                <Viewbox>
-                    <Canvas Width="1920" Height="1080">
-                        <controls:KinectAngle x:Name="angle1" Opacity="0.5" Fill="Green" />
-                        <controls:KinectAngle x:Name="angle2" Opacity="0.5" Fill="Blue" />
-                        <controls:KinectAngle x:Name="angle3" Opacity="0.5" Fill="Red" />
-                    </Canvas>
-                </Viewbox>
-            </Grid>
+            <DockPanel>
+                <Grid DockPanel.Dock="Top" Grid.Row="0" Margin="10,10,20,20">
+                    <controls:KinectViewer x:Name="viewer" />
+                    <Viewbox>
+                        <Canvas Width="1920" Height="1080">
+                            <controls:KinectAngle x:Name="angle1" Opacity="0.5" Fill="Green" />
+                            <controls:KinectAngle x:Name="angle2" Opacity="0.5" Fill="Blue" />
+                            <controls:KinectAngle x:Name="angle3" Opacity="0.5" Fill="Red" />
+                        </Canvas>
+                    </Viewbox>
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" DockPanel.Dock="Bottom">
+                    <Label Content="Angle1" Name="Angle1"/>
+                    <Label Content="Angle2" Name="Angle2"/>
+                    <Label Content="Angle3" Name="Angle3"/>
+                </StackPanel>
+            </DockPanel>
         </Grid>
     </Grid>
 </Window>

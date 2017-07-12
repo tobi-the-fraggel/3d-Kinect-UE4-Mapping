@@ -94,5 +94,29 @@ namespace Mousenect.Properties {
                 this["ChoosenVisual"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool showSkeleton {
+            get {
+                return ((bool)(this["showSkeleton"]));
+            }
+            set {
+                this["showSkeleton"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool showAngles {
+            get {
+                return ((bool)(this["showAngles"]));
+            }
+            set {
+                this["showAngles"] = value;
+            }
+        }
     }
 }

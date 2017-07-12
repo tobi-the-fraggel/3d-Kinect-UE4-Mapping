@@ -18,6 +18,9 @@ namespace Mousenect
         PlayersController _playersController;
         SettingsWindow settings;
 
+        bool showSkeleton;
+        bool showAngles;
+
         #region Joints für Winkel
         JointType _start1 = JointType.ShoulderRight;
         JointType _center1 = JointType.ElbowRight;
@@ -41,6 +44,8 @@ namespace Mousenect
 
             _sensor = kinectCtrl.sensor;
             settings = new SettingsWindow();
+            showSkeleton = Properties.Settings.Default.showSkeleton;
+            showAngles = Properties.Settings.Default.showAngles;
 
             Properties.Settings.Default.PropertyChanged += MainWindow_PropertyChanged;
 
@@ -101,6 +106,15 @@ namespace Mousenect
                     btn_activate.Background = Brushes.Red;
                     btn_activate.Content = "Steuerung deaktivieren";
                 }
+            }
+            else if (e.PropertyName == "showSkeleton")
+            {
+                setSkeleton();
+            }
+            else if (e.PropertyName == "showAngles")
+            {
+                setAngles();
+
             }
         }
 
@@ -177,18 +191,23 @@ namespace Mousenect
 
                     if (closest != null)
                     {
+                        if(showSkeleton)
                         viewer.DrawBody(closest);
+
                         HL_State.Text = closest.HandLeftState.ToString();
                         HR_State.Text = closest.HandRightState.ToString();
 
-                        angle1.Update(closest.Joints[_start1], closest.Joints[_center1], closest.Joints[_end1], 50);
-                        angle2.Update(closest.Joints[_start2], closest.Joints[_center2], closest.Joints[_end2], 50);
-                        angle3.Update(closest.Joints[_start3], closest.Joints[_center3], closest.Joints[_end3], 50);                      
-                        /*
-                        tblAngle1.Text = ((int)angle1.Angle).ToString();
-                        tblAngle2.Text = ((int)angle2.Angle).ToString();
-                        tblAngle3.Text = ((int)angle3.Angle).ToString();
-                        */
+                        if (showAngles)
+                        {
+                            angle1.Update(closest.Joints[_start1], closest.Joints[_center1], closest.Joints[_end1], 50);
+                            angle2.Update(closest.Joints[_start2], closest.Joints[_center2], closest.Joints[_end2], 50);
+                            angle3.Update(closest.Joints[_start3], closest.Joints[_center3], closest.Joints[_end3], 50);
+
+                            Angle1.Content = ((int)angle1.Angle).ToString();
+                            Angle2.Content = ((int)angle2.Angle).ToString();
+                            Angle3.Content = ((int)angle3.Angle).ToString();
+                        }
+
                         Heigth.Text = "Persongröße: " + closest.Height().ToString("f2") + " m";
                     }
                     else
@@ -255,6 +274,8 @@ namespace Mousenect
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             setVisual();
+            setAngles();
+            setSkeleton();
             //Defaults
             Properties.Settings.Default.Steering_Active = false;
             Properties.Settings.Default.Programm = 1;
@@ -324,12 +345,36 @@ namespace Mousenect
             }
         }
 
+        private void setAngles()
+        {
+            this.showAngles = Properties.Settings.Default.showAngles;
+            if (!showAngles)
+            {
+                Angle1.Visibility = Visibility.Hidden;
+                Angle2.Visibility = Visibility.Hidden;
+                Angle3.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                Angle1.Visibility = Visibility.Visible;
+                Angle2.Visibility = Visibility.Visible;
+                Angle3.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void setSkeleton()
+        {
+            this.showSkeleton = Properties.Settings.Default.showSkeleton;
+        }
+
         private void btn_skeleton_Click(object sender, RoutedEventArgs e)
         {
+            Properties.Settings.Default.showSkeleton = !Properties.Settings.Default.showSkeleton;
         }
 
         private void btn_angle_Click(object sender, RoutedEventArgs e)
         {
+            Properties.Settings.Default.showAngles = !Properties.Settings.Default.showAngles;
         }
     }
 }
