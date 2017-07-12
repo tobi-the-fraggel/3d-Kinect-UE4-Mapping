@@ -31,8 +31,8 @@
         <Grid Grid.Column="0" Margin="20,40,20,40">
             <StackPanel>
             <Button Name="btn_activate" Background="ForestGreen" Content="Steuerung aktivieren" Click="btn_activate_Click" VerticalAlignment="Top" Height="50"></Button>
-            <Button Name="leer1" Content="Leer" VerticalAlignment="Top" Height="50"></Button>
-            <Button Name="leer2" Content="Leer" VerticalAlignment="Top" Height="50"></Button>
+            <Button Name="btn_camera" Content="Kamera umschalten" VerticalAlignment="Top" Height="50" Click="btn_camera_Click"></Button>
+            <Button Name="btn_close" Content="Beenden" VerticalAlignment="Top" Height="50" Click="App_Close"></Button>
             </StackPanel>
         </Grid>
         <Grid Grid.Column="1">
@@ -45,8 +45,9 @@
                     <ItemsPanelTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5*"/>
-                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="33*"/>
+                                <ColumnDefinition Width="33*"/>
+                                <ColumnDefinition Width="33*"/>
                             </Grid.ColumnDefinitions>
                         </Grid>
                     </ItemsPanelTemplate>
@@ -55,6 +56,9 @@
                     <TextBlock Text="Hand Left" Name="HL_State" />
                 </StatusBarItem>
                 <StatusBarItem HorizontalAlignment="Center" Grid.Column="1">
+                    <TextBlock Text="Visual" Name="Visual"/>
+                </StatusBarItem>
+                <StatusBarItem HorizontalAlignment="Center" Grid.Column="2">
                     <TextBlock Text="Hand Right" x:Name="HR_State"/>
                 </StatusBarItem>
             </StatusBar>

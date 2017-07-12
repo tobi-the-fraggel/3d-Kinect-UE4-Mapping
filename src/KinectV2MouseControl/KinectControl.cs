@@ -180,7 +180,7 @@ namespace Mousenect
                 wasGesture = true;
                 timer.Start();
 
-                if(Programm == 4)
+                if(Programm == 4) //Media Player Gesten
                 {
                     if (e.GestureType == GestureType.SwipeLeft)
                         InputControl.MediaPrev();
@@ -220,7 +220,7 @@ namespace Mousenect
                             //Gesture-Controller das neuste Frame liefern
                             gestureController.Update(body);
 
-                            //2x Lasso zum beenden der Anwendung muss 50 Frames gehalten werden
+                            //2x Lasso zum beenden der Anwendung muss 30 Frames gehalten werden
                             if (body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Lasso)
                             {
                                 if (!wasDoubleLasso)

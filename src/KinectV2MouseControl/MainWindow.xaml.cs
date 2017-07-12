@@ -131,6 +131,30 @@ namespace Mousenect
                 }
             }
 
+            // Depth
+            using (var frame = reference.DepthFrameReference.AcquireFrame())
+            {
+                if (frame != null)
+                {
+                    if (viewer.Visualization == Visualization.Depth)
+                    {
+                        viewer.Image = frame.ToBitmap();
+                    }
+                }
+            }
+
+            // Infrared
+            using (var frame = reference.InfraredFrameReference.AcquireFrame())
+            {
+                if (frame != null)
+                {
+                    if (viewer.Visualization == Visualization.Infrared)
+                    {
+                        viewer.Image = frame.ToBitmap();
+                    }
+                }
+            }
+
             // Body
             using (var frame = reference.BodyFrameReference.AcquireFrame())
             {
@@ -207,6 +231,7 @@ namespace Mousenect
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            setVisual();
             //Defaults
             Properties.Settings.Default.Steering_Active = false;
             Properties.Settings.Default.Programm = 1;
@@ -215,6 +240,49 @@ namespace Mousenect
         private void btn_activate_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.Steering_Active = !Properties.Settings.Default.Steering_Active;
+        }
+
+        private void btn_camera_Click(object sender, RoutedEventArgs e)
+        {
+            switch (Properties.Settings.Default.ChoosenVisual)
+            {
+                case "Color":
+                    Properties.Settings.Default.ChoosenVisual = "Depth";
+                    break;
+                case "Depth":
+                    Properties.Settings.Default.ChoosenVisual = "Infrared";
+                    break;
+                case "Infrared":
+                    Properties.Settings.Default.ChoosenVisual = "Color";
+                    break;
+                default:
+                    Console.WriteLine("MainWindow: Fehler bei btnCamera");
+                    break;
+            }
+            Properties.Settings.Default.Save();
+            setVisual();
+        }
+
+        private void setVisual()
+        {
+            switch (Properties.Settings.Default.ChoosenVisual)
+            {
+                case "Color":
+                    viewer.Visualization = Visualization.Color;
+                    Visual.Text = "Color";
+                    break;
+                case "Depth":
+                    viewer.Visualization = Visualization.Depth;
+                    Visual.Text = "Depth";
+                    break;
+                case "Infrared":
+                    viewer.Visualization = Visualization.Infrared;
+                    Visual.Text = "Infrared";
+                    break;
+                default:
+                    Console.WriteLine("MainWindow: Fehler bei setVisual");
+                    break;
+            }
         }
     }
 }

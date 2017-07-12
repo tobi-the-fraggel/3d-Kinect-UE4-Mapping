@@ -17,5 +17,8 @@
     <Setting Name="Steering_Active" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="ChoosenVisual" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Color</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

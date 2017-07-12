@@ -82,5 +82,17 @@ namespace Mousenect.Properties {
                 this["Steering_Active"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Color")]
+        public string ChoosenVisual {
+            get {
+                return ((string)(this["ChoosenVisual"]));
+            }
+            set {
+                this["ChoosenVisual"] = value;
+            }
+        }
     }
 }
