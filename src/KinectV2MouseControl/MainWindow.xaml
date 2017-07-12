@@ -32,6 +32,8 @@
             <StackPanel>
             <Button Name="btn_activate" Background="ForestGreen" Content="Steuerung aktivieren" Click="btn_activate_Click" VerticalAlignment="Top" Height="50"></Button>
             <Button Name="btn_camera" Content="Kamera umschalten" VerticalAlignment="Top" Height="50" Click="btn_camera_Click"></Button>
+            <Button Name="btn_skeleton" Content="Skelett ein-/ausblenden" VerticalAlignment="Top" Height="50" Click="btn_skeleton_Click"></Button>
+            <Button Name="btn_angle" Content="Winkel ein-/ausblenden" VerticalAlignment="Top" Height="50" Click="btn_angle_Click"></Button>
             <Button Name="btn_screenshot" Content="Screenshot" VerticalAlignment="Top" Height="50" Click="btn_screenshot_Click"></Button>
             <Button Name="btn_close" Content="Beenden" VerticalAlignment="Top" Height="50" Click="App_Close"></Button>
             </StackPanel>
@@ -67,7 +69,16 @@
                     <TextBlock Text="Hand Right" x:Name="HR_State"/>
                 </StatusBarItem>
             </StatusBar>
-            <controls:KinectViewer x:Name="viewer" Grid.Row="0" Margin="10,10,30,30"></controls:KinectViewer>
+            <Grid Grid.Row="0" Margin="10,10,30,30">
+                <controls:KinectViewer x:Name="viewer" />
+                <Viewbox>
+                    <Canvas Width="1920" Height="1080">
+                        <controls:KinectAngle x:Name="angle1" Opacity="0.5" Fill="Green" />
+                        <controls:KinectAngle x:Name="angle2" Opacity="0.5" Fill="Blue" />
+                        <controls:KinectAngle x:Name="angle3" Opacity="0.5" Fill="Red" />
+                    </Canvas>
+                </Viewbox>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

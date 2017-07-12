@@ -19,6 +19,20 @@ namespace Mousenect
         PlayersController _playersController;
         SettingsWindow settings;
 
+        #region Joints für Winkel
+        JointType _start1 = JointType.ShoulderRight;
+        JointType _center1 = JointType.ElbowRight;
+        JointType _end1 = JointType.WristRight;
+
+        JointType _start2 = JointType.ElbowLeft;
+        JointType _center2 = JointType.ShoulderLeft;
+        JointType _end2 = JointType.SpineShoulder;
+
+        JointType _start3 = JointType.AnkleRight;
+        JointType _center3 = JointType.KneeRight;
+        JointType _end3 = JointType.HipRight;
+        #endregion
+
         //Objekt der Klasse KinectControl erzeugen
         KinectControl kinectCtrl = new KinectControl();
 
@@ -172,6 +186,16 @@ namespace Mousenect
                         viewer.DrawBody(closest);
                         HL_State.Text = closest.HandLeftState.ToString();
                         HR_State.Text = closest.HandRightState.ToString();
+
+                        angle1.Update(closest.Joints[_start1], closest.Joints[_center1], closest.Joints[_end1], 50);
+                        angle2.Update(closest.Joints[_start2], closest.Joints[_center2], closest.Joints[_end2], 50);
+                        angle3.Update(closest.Joints[_start3], closest.Joints[_center3], closest.Joints[_end3], 50);
+                        
+                        /*
+                        tblAngle1.Text = ((int)angle1.Angle).ToString();
+                        tblAngle2.Text = ((int)angle2.Angle).ToString();
+                        tblAngle3.Text = ((int)angle3.Angle).ToString();
+                        */
                         Heigth.Text = "Persongröße: " + closest.Height().ToString("f2") + " m";
                     }
                     else
@@ -192,6 +216,9 @@ namespace Mousenect
             // A user has left the scene.
             Console.WriteLine("Body aus der Szene entfernt");
             viewer.Clear();
+            angle1.Clear();
+            angle2.Clear();
+            angle3.Clear();
         }
         #endregion
 
@@ -252,6 +279,8 @@ namespace Mousenect
             Console.WriteLine("Button Screenshot gedrückt");
 
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "vitruvius-capture.jpg");
+
+            (viewer.Image as WriteableBitmap).Save(path);
 
             // Displays a SaveFileDialog so the user can save the Image
             // assigned to Button2.
@@ -321,5 +350,18 @@ namespace Mousenect
                     break;
             }
         }
+
+        private void btn_skeleton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_angle_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "vitruvius-capture.jpg");
+
+            (viewer.Image as WriteableBitmap).Save(path);
