@@ -77,11 +77,6 @@ namespace Mousenect
             {
                 _bodyReader.Dispose();
             }
-
-            if (_sensor != null)
-            {
-                _sensor.Close();
-            }
         }
 
         private void ColorReader_FrameArrived(object sender, ColorFrameArrivedEventArgs e)
