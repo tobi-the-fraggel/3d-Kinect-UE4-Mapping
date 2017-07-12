@@ -6,6 +6,9 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
+using Microsoft.Win32;
+using System.IO;
+
 
 namespace Mousenect
 {
@@ -250,7 +253,29 @@ namespace Mousenect
 
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "vitruvius-capture.jpg");
 
-            (viewer.Image as WriteableBitmap).Save(path);
+            // Displays a SaveFileDialog so the user can save the Image
+            // assigned to Button2.
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "JPeg Image|*.jpg";
+            saveFileDialog.Title = "Save an Image File";
+            saveFileDialog.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.
+            if (saveFileDialog.FileName != "")
+            {
+                
+
+                
+            }
+            string sfdname = saveFileDialog.FileName;
+           
+                Path.GetFileName(saveFileDialog.FileName);
+            //Read Full Path of a Objekt ,ER
+            string fullPath = System.IO.Path.GetDirectoryName(sfdname);
+
+            Console.WriteLine(sfdname);
+            // Save Bitmap to the Path
+            (viewer.Image as WriteableBitmap).Save(sfdname);
 
         }
 
