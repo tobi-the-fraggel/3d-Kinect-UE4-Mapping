@@ -5,6 +5,7 @@ using System.Windows.Threading;
 using Microsoft.Kinect;
 using LightBuzz.Vitruvius;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Mousenect
 {
@@ -74,6 +75,7 @@ namespace Mousenect
         /// Variable zur Steuerung verschiedener Programme
         /// Maus = 1
         /// Powerpoint = 2
+        /// Zeichnen = 3
         /// </summary>
         public byte Programm = 1;
         DrawingWindow drawing = null;
@@ -111,34 +113,39 @@ namespace Mousenect
 
         private void KinectControl_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName == "CursorSmoothing")
+            if (e.PropertyName == "CursorSmoothing")
             {
                 this.cursorSmoothing = Properties.Settings.Default.CursorSmoothing;
                 Console.WriteLine("KinectControl: CursorSmoothing geändert auf " + this.cursorSmoothing);
             }
-            else if(e.PropertyName == "MouseSensitivity")
+            else if (e.PropertyName == "MouseSensitivity")
             {
                 this.mouseSensitivity = Properties.Settings.Default.MouseSensitivity;
                 Console.WriteLine("KinectControl: MouseSensitivity geändert auf " + this.mouseSensitivity);
             }
-            else if(e.PropertyName == "DoClick")
+            else if (e.PropertyName == "DoClick")
             {
                 this.doClick = Properties.Settings.Default.DoClick;
                 Console.WriteLine("KinectControl: DoClick geändert auf " + this.doClick);
             }
-            else if(e.PropertyName == "Programm")
+            else if (e.PropertyName == "Programm")
             {
                 this.Programm = Properties.Settings.Default.Programm;
                 Console.WriteLine("KinectControl: Programm geändert auf " + this.Programm);
 
-                if(this.Programm == 3)
+                if (this.Programm == 3)
                 {
                     drawing = new DrawingWindow(this);
                     drawing.Show();
                     Console.WriteLine("DrawingWindow geöffnet");
                 }
+                else if(this.Programm == 4)
+                {
+                    Process.Start("wmplayer.exe");
+                    Console.WriteLine("Mediaplayer geöffnet");
+                }
             }
-            else if(e.PropertyName == "Steering_Active")
+            else if (e.PropertyName == "Steering_Active")
             {
                 this.Steering_Active = Properties.Settings.Default.Steering_Active;
                 Console.WriteLine("KinectControl: SteeringActive geändert auf " + this.Steering_Active);
@@ -173,22 +180,18 @@ namespace Mousenect
                 wasGesture = true;
                 timer.Start();
 
+                if(Programm == 4)
+                {
+                    if (e.GestureType == GestureType.SwipeLeft)
+                        InputControl.MediaPrev();
+                    else if (e.GestureType == GestureType.SwipeRight)
+                        InputControl.MediaNext();
+                    else if (e.GestureType == GestureType.JoinedHands)
+                        InputControl.MediaPlayPause();
+                }
+
                 //Debugging Konsolen-Ausgabe
                 Console.WriteLine("Geste wurde erkannt: " + e.GestureType.ToString());
-
-                //PowerPoint-Gesten TEMPORARELY DISABLED
-                if (Programm == 10)
-                {
-                    if (e.GestureType == GestureType.SwipeRight)
-                    {
-                        InputControl.PressRightArrowKey();
-                    }
-                    else if (e.GestureType == GestureType.SwipeLeft)
-                    {
-                        InputControl.PressLeftArrowKey();
-                    }
-
-                }
             }
         }
 

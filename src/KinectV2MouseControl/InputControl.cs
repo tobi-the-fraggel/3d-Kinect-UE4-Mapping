@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using WindowsInput;
 
 namespace Mousenect
@@ -20,7 +19,6 @@ namespace Mousenect
         public static void DoMouseClick()
         {
             mouse_event(MouseEventFlag.LeftDown | MouseEventFlag.LeftUp, 0, 0, 0, UIntPtr.Zero);
-            //WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.LBUTTON);
         }
 
         public static void DoDoubleMouseClick()
@@ -37,6 +35,21 @@ namespace Mousenect
         public static void PressRightArrowKey()
         {
             WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.RIGHT);
+        }
+
+        public static void MediaPlayPause()
+        {
+            WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.MEDIA_PLAY_PAUSE);
+        }
+
+        public static void MediaPrev()
+        {
+            WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.MEDIA_PREV_TRACK);
+        }
+
+        public static void MediaNext()
+        {
+            WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.MEDIA_NEXT_TRACK);
         }
 
         [DllImport("user32.dll")]

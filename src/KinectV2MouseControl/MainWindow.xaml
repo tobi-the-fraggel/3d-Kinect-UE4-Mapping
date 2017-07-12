@@ -22,6 +22,7 @@
                     <MenuItem Name="MI_Maus" Header="Maus" IsCheckable="True" Click="MenuItem_Click" IsChecked="True"></MenuItem>
                     <MenuItem Name="MI_PP" Header="PowerPoint" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
                     <MenuItem Name="MI_Zeichnung" Header="Zeichnen" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
+                    <MenuItem Name="MI_Media" Header="MediaPlayer (Windows)" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
                     <Separator></Separator>
                     <MenuItem Header="Unreal-Avateering"></MenuItem>
                 </MenuItem>
@@ -57,7 +58,7 @@
                     <TextBlock Text="Hand Right" x:Name="HR_State"/>
                 </StatusBarItem>
             </StatusBar>
-            <controls:KinectViewer x:Name="viewer" Grid.Row="0" Margin="10,10,10,30"></controls:KinectViewer>
+            <controls:KinectViewer x:Name="viewer" Grid.Row="0" Margin="10,10,30,30"></controls:KinectViewer>
         </Grid>
     </Grid>
 </Window>

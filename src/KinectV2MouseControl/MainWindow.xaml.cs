@@ -47,6 +47,7 @@ namespace Mousenect
                 MI_Maus.IsChecked = false;
                 MI_PP.IsChecked = false;
                 MI_Zeichnung.IsChecked = false;
+                MI_Media.IsChecked = false;
 
                 switch (Properties.Settings.Default.Programm)
                 {
@@ -59,8 +60,11 @@ namespace Mousenect
                     case 3:
                         MI_Zeichnung.IsChecked = true;
                         break;
+                    case 4:
+                        MI_Media.IsChecked = true;
+                        break;
                     default:
-                        Console.WriteLine("FEHLER Programm war über der Anzahl");
+                        Console.WriteLine("MainWindows: FEHLER Programm war über der Anzahl");
                         MI_Maus.IsChecked = true;
                         Properties.Settings.Default.Programm = 1;
                         break;
@@ -149,8 +153,9 @@ namespace Mousenect
 
         void UserReporter_BodyEntered(object sender, PlayersControllerEventArgs e)
         {
-            Console.WriteLine("Neuer Body in der Szene");
             // A new user has entered the scene.
+            Console.WriteLine("Neuer Body in der Szene");
+            viewer.Clear();
         }
 
         void UserReporter_BodyLeft(object sender, PlayersControllerEventArgs e)
@@ -177,9 +182,12 @@ namespace Mousenect
                 case "Zeichnen":
                     Properties.Settings.Default.Programm = 3;
                     break;
+                case "MediaPlayer (Windows)":
+                    Properties.Settings.Default.Programm = 4;
+                    break;
                 default:
                     Properties.Settings.Default.Programm = 1;
-                    Console.WriteLine("Fehler im MenuItem_Click");
+                    Console.WriteLine("MainWindows: Fehler im MenuItem_Click");
                     break;
             }
 
