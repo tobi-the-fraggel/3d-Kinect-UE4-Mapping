@@ -5,6 +5,7 @@ using System;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.ComponentModel;
+using System.Windows.Media.Imaging;
 
 namespace Mousenect
 {
@@ -241,6 +242,16 @@ namespace Mousenect
         private void btn_activate_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.Steering_Active = !Properties.Settings.Default.Steering_Active;
+        }
+
+        private void btn_screenshot_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Button Screenshot gedrückt");
+
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "vitruvius-capture.jpg");
+
+            (viewer.Image as WriteableBitmap).Save(path);
+
         }
 
         private void btn_camera_Click(object sender, RoutedEventArgs e)

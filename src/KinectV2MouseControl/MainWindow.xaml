@@ -32,6 +32,7 @@
             <StackPanel>
             <Button Name="btn_activate" Background="ForestGreen" Content="Steuerung aktivieren" Click="btn_activate_Click" VerticalAlignment="Top" Height="50"></Button>
             <Button Name="btn_camera" Content="Kamera umschalten" VerticalAlignment="Top" Height="50" Click="btn_camera_Click"></Button>
+            <Button Name="btn_screenshot" Content="Screenshot" VerticalAlignment="Top" Height="50" Click="btn_screenshot_Click"></Button>
             <Button Name="btn_close" Content="Beenden" VerticalAlignment="Top" Height="50" Click="App_Close"></Button>
             </StackPanel>
         </Grid>
