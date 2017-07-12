@@ -250,9 +250,6 @@ namespace Mousenect
         private void btn_screenshot_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Button Screenshot gedrückt");
-
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "vitruvius-capture.jpg");
-
             // Displays a SaveFileDialog so the user can save the Image
             // assigned to Button2.
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -267,12 +264,7 @@ namespace Mousenect
 
                 
             }
-            string sfdname = saveFileDialog.FileName;
-           
-                Path.GetFileName(saveFileDialog.FileName);
-            //Read Full Path of a Objekt ,ER
-            string fullPath = System.IO.Path.GetDirectoryName(sfdname);
-
+            string sfdname = saveFileDialog.FileName;          
             Console.WriteLine(sfdname);
             // Save Bitmap to the Path
             (viewer.Image as WriteableBitmap).Save(sfdname);
