@@ -25,8 +25,20 @@
 
 ---
 
+Probleme 1. Woche: Fehlender Debugging Code / Schwierige Suche der kleineren Fehler
+	--> Behoben ab Freitag durch Einfügen von Debugging-Ausgaben in die Konsole
+Fazit	Bereits ab den ersten Programmierschritte Konsolenausgaben einfügen und während der fortlaufenden Programmierung pflegen und updaten.
+
 10.07.2017 2. Woche Montag
 - Neues Fenster für Einstellungen eingefügt
-- GUI überarbeitet
+- GUI überarbeitet (StatusBar und Menu)
 
 11.07.2017
+- Einfügen der "Zeichnen" Funktion
+- Implementieren in die GUI
+
+12.07.2017
+- Hinzufügen der Steuerung des MediaPlayers
+- Hizufügen der Body-Größe in die StatusBar
+- Umschalten der Kamera-Ansicht implementiert
+- BugFixes
