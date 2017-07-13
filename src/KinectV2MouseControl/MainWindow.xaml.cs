@@ -193,7 +193,24 @@ namespace Mousenect
                         viewer.DrawBody(closest);
 
                         HL_State.Text = closest.HandLeftState.ToString();
+                        if (closest.HandLeftState == HandState.Closed)
+                            HL_State.Background = Brushes.Red;
+                        else if (closest.HandLeftState == HandState.Lasso)
+                            HL_State.Background = Brushes.Blue;
+                        else if (closest.HandLeftState == HandState.Open)
+                            HL_State.Background = Brushes.Green;
+                        else
+                            HL_State.Background = Brushes.White;
+
                         HR_State.Text = closest.HandRightState.ToString();
+                        if (closest.HandRightState == HandState.Closed)
+                            HR_State.Background = Brushes.Red;
+                        else if (closest.HandRightState == HandState.Lasso)
+                            HR_State.Background = Brushes.Blue;
+                        else if (closest.HandRightState == HandState.Open)
+                            HR_State.Background = Brushes.Green;
+                        else
+                            HR_State.Background = Brushes.White;
 
                         if (showAngles)
                         {

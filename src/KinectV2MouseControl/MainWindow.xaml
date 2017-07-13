@@ -10,9 +10,10 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="239*"/>
+            <ColumnDefinition Width="58*"/>
         </Grid.ColumnDefinitions>
-        <DockPanel Grid.ColumnSpan="2">
+        <DockPanel Grid.ColumnSpan="3">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="Datei">
                     <MenuItem Header="Einstellungen" Click="OpenSettings"></MenuItem>
@@ -28,15 +29,15 @@
         </DockPanel>
         <Grid Grid.Column="0" Margin="20,40,20,40">
             <StackPanel>
-            <Button Name="btn_activate" Background="ForestGreen" Content="Steuerung aktivieren" Click="btn_activate_Click" VerticalAlignment="Top" Height="50"></Button>
-            <Button Name="btn_camera" Content="Kamera umschalten" VerticalAlignment="Top" Height="50" Click="btn_camera_Click"></Button>
-            <Button Name="btn_skeleton" Content="Skelett ein-/ausblenden" VerticalAlignment="Top" Height="50" Click="btn_skeleton_Click"></Button>
-            <Button Name="btn_angle" Content="Winkel ein-/ausblenden" VerticalAlignment="Top" Height="50" Click="btn_angle_Click"></Button>
-            <Button Name="btn_screenshot" Content="Screenshot" VerticalAlignment="Top" Height="50" Click="btn_screenshot_Click"></Button>
-            <Button Name="btn_close" Content="Beenden" VerticalAlignment="Top" Height="50" Click="App_Close"></Button>
+                <Button Name="btn_activate" Background="ForestGreen" Content="Steuerung aktivieren" Click="btn_activate_Click" VerticalAlignment="Top" Height="50"></Button>
+                <Button Name="btn_camera" Content="Kamera umschalten" VerticalAlignment="Top" Height="50" Click="btn_camera_Click"></Button>
+                <Button Name="btn_skeleton" Content="Skelett ein-/ausblenden" VerticalAlignment="Top" Height="50" Click="btn_skeleton_Click"></Button>
+                <Button Name="btn_angle" Content="Winkel ein-/ausblenden" VerticalAlignment="Top" Height="50" Click="btn_angle_Click"></Button>
+                <Button Name="btn_screenshot" Content="Screenshot aufnehmen" VerticalAlignment="Top" Height="50" Click="btn_screenshot_Click"></Button>
+                <Button Name="btn_close" Content="Beenden" VerticalAlignment="Top" Height="50" Click="App_Close"></Button>
             </StackPanel>
         </Grid>
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="40"/>
