@@ -42,7 +42,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <StatusBar Height="40" Margin="0,387,30,0.333" Grid.RowSpan="2" >
+            <StatusBar Height="40" Margin="0,387,30,0" Grid.RowSpan="2" >
                 <StatusBar.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Grid>

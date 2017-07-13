@@ -118,5 +118,41 @@ namespace Mousenect.Properties {
                 this["showAngles"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NotifyError {
+            get {
+                return ((string)(this["NotifyError"]));
+            }
+            set {
+                this["NotifyError"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NotifyWarning {
+            get {
+                return ((string)(this["NotifyWarning"]));
+            }
+            set {
+                this["NotifyWarning"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NotifyInfo {
+            get {
+                return ((string)(this["NotifyInfo"]));
+            }
+            set {
+                this["NotifyInfo"] = value;
+            }
+        }
     }
 }

@@ -9,82 +9,86 @@ using ToastNotifications.Position;
 
 namespace Mousenect
 {
-    private readonly Notifier _notifier;
-
     public class ToastViewModel
     {
-        _notifier = new Notifier(cfg =>
-            {
-            cfg.PositionProvider = new WindowPositionProvider(
-                parentWindow: Application.Current.MainWindow,
-                corner: Corner.BottomRight,
-                offsetX: 25,
-                offsetY: 100);
+        private readonly Notifier _notifier;
 
-            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                notificationLifetime: TimeSpan.FromSeconds(6),
-                maximumNotificationCount: MaximumNotificationCount.FromCount(6));
+        public ToastViewModel()
+        {
+            Properties.Settings.Default.PropertyChanged += ToastPropertyChanged;
 
-            cfg.Dispatcher = Application.Current.Dispatcher;
+            _notifier = new Notifier(cfg =>
+                {
+                    cfg.PositionProvider = new WindowPositionProvider(
+                    parentWindow: Application.Current.MainWindow,
+                    corner: Corner.BottomRight,
+                    offsetX: 25,
+                    offsetY: 100);
 
-            cfg.DisplayOptions.TopMost = true;
-            cfg.DisplayOptions.Width = 250;
-        });
+                    cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                    notificationLifetime: TimeSpan.FromSeconds(6),
+                    maximumNotificationCount: MaximumNotificationCount.FromCount(6));
+
+                    cfg.Dispatcher = Application.Current.Dispatcher;
+
+                    cfg.DisplayOptions.TopMost = true;
+                    cfg.DisplayOptions.Width = 250;
+                });
 
             _notifier.ClearMessages();
-    }
-    public void OnUnloaded()
-    {
-        _notifier.Dispose();
-    }
+        }
 
-    public void ShowInformation(string message)
-    {
-        _notifier.ShowInformation(message);
-    }
+        private void ToastPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == "NotifyInfo")
+            {
+                ShowInformation(Properties.Settings.Default.NotifyInfo);
+            }
+        }
 
-    public void ShowInformation(string message, MessageOptions opts)
-    {
-        _notifier.ShowInformation(message, opts);
-    }
+        public void OnUnloaded()
+        {
+            _notifier.Dispose();
+        }
 
-    public void ShowSuccess(string message)
-    {
-        _notifier.ShowSuccess(message);
-    }
+        public void ShowInformation(string message)
+        {
+            _notifier.ShowInformation(message);
+        }
 
-    public void ShowSuccess(string message, MessageOptions opts)
-    {
-        _notifier.ShowSuccess(message, opts);
-    }
+        public void ShowInformation(string message, MessageOptions opts)
+        {
+            _notifier.ShowInformation(message, opts);
+        }
 
-    internal void ClearMessages(string msg)
-    {
-        _notifier.ClearMessages(msg);
-    }
+        public void ShowSuccess(string message)
+        {
+            _notifier.ShowSuccess(message);
+        }
 
-    public void ShowWarning(string message, MessageOptions opts)
-    {
-        _notifier.ShowWarning(message, opts);
-    }
+        public void ShowSuccess(string message, MessageOptions opts)
+        {
+            _notifier.ShowSuccess(message, opts);
+        }
 
-    public void ShowError(string message)
-    {
-        _notifier.ShowError(message);
-    }
+        internal void ClearMessages(string msg)
+        {
+            _notifier.ClearMessages(msg);
+        }
 
-    public void ShowError(string message, MessageOptions opts)
-    {
-        _notifier.ShowError(message, opts);
-    }
+        public void ShowWarning(string message, MessageOptions opts)
+        {
+            _notifier.ShowWarning(message, opts);
+        }
 
+        public void ShowError(string message)
+        {
+            _notifier.ShowError(message);
+        }
 
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected virtual void OnPropertyChanged(string propertyName = null)
-    {
-        var handler = PropertyChanged;
-        if (handler != null)
-            handler.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        public void ShowError(string message, MessageOptions opts)
+        {
+            _notifier.ShowError(message, opts);
+        }
     }
 }
