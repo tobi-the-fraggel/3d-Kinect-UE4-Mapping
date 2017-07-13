@@ -203,9 +203,16 @@ namespace Mousenect
                             angle2.Update(closest.Joints[_start2], closest.Joints[_center2], closest.Joints[_end2], 50);
                             angle3.Update(closest.Joints[_start3], closest.Joints[_center3], closest.Joints[_end3], 50);
 
-                            Angle1.Content = ((int)angle1.Angle).ToString();
-                            Angle2.Content = ((int)angle2.Angle).ToString();
-                            Angle3.Content = ((int)angle3.Angle).ToString();
+                            Angle1.Content = ((int)angle1.Angle).ToString() + "°";
+                            Angle2.Content = ((int)angle2.Angle).ToString() + "°";
+                            Angle3.Content = ((int)angle3.Angle).ToString() + "°";
+                        }
+
+                        else
+                        {
+                            angle1.Clear();
+                            angle2.Clear();
+                            angle3.Clear();
                         }
 
                         Heigth.Text = "Persongröße: " + closest.Height().ToString("f2") + " m";
@@ -279,11 +286,13 @@ namespace Mousenect
             //Defaults
             Properties.Settings.Default.Steering_Active = false;
             Properties.Settings.Default.Programm = 1;
+            Properties.Settings.Default.Save();
         }
 
         private void btn_activate_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.Steering_Active = !Properties.Settings.Default.Steering_Active;
+            Properties.Settings.Default.Save();
         }
 
         private void btn_screenshot_Click(object sender, RoutedEventArgs e)
@@ -343,6 +352,15 @@ namespace Mousenect
                     Console.WriteLine("MainWindow: Fehler bei setVisual");
                     break;
             }
+
+            if (viewer.Visualization != Visualization.Color)
+            {
+                Properties.Settings.Default.showAngles = false;
+                Properties.Settings.Default.Save();
+                btn_angle.IsEnabled = false;
+            }
+            else
+                btn_angle.IsEnabled = true;
         }
 
         private void setAngles()
@@ -353,28 +371,35 @@ namespace Mousenect
                 Angle1.Visibility = Visibility.Hidden;
                 Angle2.Visibility = Visibility.Hidden;
                 Angle3.Visibility = Visibility.Hidden;
+                Angle.Visibility = Visibility.Hidden;
+
             }
             else
             {
                 Angle1.Visibility = Visibility.Visible;
                 Angle2.Visibility = Visibility.Visible;
                 Angle3.Visibility = Visibility.Visible;
+                Angle.Visibility = Visibility.Visible;
             }
         }
 
         private void setSkeleton()
         {
             this.showSkeleton = Properties.Settings.Default.showSkeleton;
+            if (!this.showSkeleton)
+                viewer.Clear();
         }
 
         private void btn_skeleton_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.showSkeleton = !Properties.Settings.Default.showSkeleton;
+            Properties.Settings.Default.Save();
         }
 
         private void btn_angle_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.showAngles = !Properties.Settings.Default.showAngles;
+            Properties.Settings.Default.Save();
         }
     }
 }

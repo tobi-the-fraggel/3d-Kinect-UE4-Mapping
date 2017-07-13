@@ -70,7 +70,7 @@
                 </StatusBarItem>
             </StatusBar>
             <DockPanel>
-                <Grid DockPanel.Dock="Top" Grid.Row="0" Margin="10,10,20,20">
+                <Grid DockPanel.Dock="Top" Grid.Row="0" Margin="10,10,20,0">
                     <controls:KinectViewer x:Name="viewer" />
                     <Viewbox>
                         <Canvas Width="1920" Height="1080">
@@ -81,9 +81,10 @@
                     </Viewbox>
                 </Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" DockPanel.Dock="Bottom">
-                    <Label Content="Angle1" Name="Angle1"/>
-                    <Label Content="Angle2" Name="Angle2"/>
-                    <Label Content="Angle3" Name="Angle3"/>
+                    <Label Content="Winkel: " Name="Angle" FontWeight="Bold"></Label>
+                    <Label Content="Angle1" Background="Green" Foreground="White" Name="Angle1" Width="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Label Content="Angle2" Background="Blue" Foreground="White" Name="Angle2" Width="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Label Content="Angle3" Background="Red" Foreground="White" Name="Angle3" Width="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 </StackPanel>
             </DockPanel>
         </Grid>
