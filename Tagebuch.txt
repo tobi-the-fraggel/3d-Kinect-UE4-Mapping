@@ -27,7 +27,9 @@
 
 Probleme 1. Woche: Fehlender Debugging Code / Schwierige Suche der kleineren Fehler
 	--> Behoben ab Freitag durch Einfügen von Debugging-Ausgaben in die Konsole
-Fazit	Bereits ab den ersten Programmierschritte Konsolenausgaben einfügen und während der fortlaufenden Programmierung pflegen und updaten.
+Fazit	Bereits ab den ersten Programmierschritten Konsolenausgaben einfügen und während der fortlaufenden Programmierung pflegen und updaten.
+
+---
 
 10.07.2017 2. Woche Montag
 - Neues Fenster für Einstellungen eingefügt
@@ -42,3 +44,8 @@ Fazit	Bereits ab den ersten Programmierschritte Konsolenausgaben einfügen und wä
 - Hizufügen der Body-Größe in die StatusBar
 - Umschalten der Kamera-Ansicht implementiert
 - BugFixes
+
+13.07.2017
+- Testen und Fehlerbehebung
+- Feinschliff in der GUI
+- Abschluss der Implementation von Anzeige des Skeletts und der Winkel
