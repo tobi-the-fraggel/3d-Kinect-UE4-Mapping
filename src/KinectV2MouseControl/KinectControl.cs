@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
-using System.Runtime.InteropServices;
 using System.Windows.Threading;
+using System.Windows.Media;
 using Microsoft.Kinect;
 using LightBuzz.Vitruvius;
 using System.ComponentModel;
@@ -71,6 +71,8 @@ namespace Mousenect
         /// </summary>
         bool Steering_Active = false;
 
+        double angle = 0;
+
         /// <summary>
         /// Variable zur Steuerung verschiedener Programme
         /// Maus = 1
@@ -91,7 +93,6 @@ namespace Mousenect
 
             //PropertyChanged Event verknüpfen
             Properties.Settings.Default.PropertyChanged += KinectControl_PropertyChanged;
-
 
             #region Timer-Setup
             timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
@@ -219,6 +220,11 @@ namespace Mousenect
                         {
                             //Gesture-Controller das neuste Frame liefern
                             gestureController.Update(body);
+                            //Winkel Update
+                            Joint shoulder = body.Joints[JointType.ShoulderLeft];
+                            Joint elbow = body.Joints[JointType.ElbowLeft];
+                            Joint wrist = body.Joints[JointType.WristLeft];
+                            angle = elbow.Angle(shoulder, wrist);
 
                             //2x Lasso zum beenden der Anwendung muss 30 Frames gehalten werden
                             if (body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Lasso)
