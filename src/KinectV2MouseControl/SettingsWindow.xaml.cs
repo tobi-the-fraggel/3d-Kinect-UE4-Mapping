@@ -68,7 +68,12 @@ namespace Mousenect
 
         private void btn_close_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            this.Close();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.Close();
         }
     }
 }

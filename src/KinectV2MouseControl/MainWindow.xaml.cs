@@ -16,7 +16,6 @@ namespace Mousenect
         KinectSensor _sensor;
         MultiSourceFrameReader _reader;
         PlayersController _playersController;
-        SettingsWindow settings;
 
         bool showSkeleton;
         bool showAngles;
@@ -43,7 +42,6 @@ namespace Mousenect
             InitializeComponent();
 
             _sensor = kinectCtrl.sensor;
-            settings = new SettingsWindow();
             showSkeleton = Properties.Settings.Default.showSkeleton;
             showAngles = Properties.Settings.Default.showAngles;
 
@@ -270,6 +268,7 @@ namespace Mousenect
         //Einstellungen öffnen
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
+            SettingsWindow settings = new SettingsWindow();
             settings.Show();
         }
 

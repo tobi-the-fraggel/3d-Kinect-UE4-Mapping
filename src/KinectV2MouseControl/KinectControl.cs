@@ -80,7 +80,7 @@ namespace Mousenect
         /// Zeichnen = 3
         /// </summary>
         public byte Programm = 1;
-        DrawingWindow drawing = null;
+        DrawingWindow drawing;
 
         public KinectControl()
         {
