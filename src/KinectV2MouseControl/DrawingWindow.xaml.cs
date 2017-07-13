@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Microsoft.Kinect;
-using LightBuzz.Vitruvius;
 using System.Runtime.InteropServices;
 
 namespace Mousenect
@@ -67,7 +58,6 @@ namespace Mousenect
             Properties.Settings.Default.Steering_Active = false;
             Properties.Settings.Default.Save();
 
-            //kinectCtrl.setSteeringActive(false);
             if (_colorReader != null)
             {
                 _colorReader.Dispose();
@@ -122,7 +112,6 @@ namespace Mousenect
                                 // DRAW!
                                 if (body.HandRightState == HandState.Closed)
                                     trail.Points.Add(new Point { X = x, Y = y });
-
                             }
                         }
                     }

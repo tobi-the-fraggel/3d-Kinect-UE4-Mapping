@@ -205,7 +205,6 @@ namespace Mousenect
                             Angle2.Content = ((int)angle2.Angle).ToString() + "°";
                             Angle3.Content = ((int)angle3.Angle).ToString() + "°";
                         }
-
                         else
                         {
                             angle1.Clear();
