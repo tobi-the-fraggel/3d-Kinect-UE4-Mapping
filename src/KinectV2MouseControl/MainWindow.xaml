@@ -23,8 +23,6 @@
                     <MenuItem Name="MI_PP" Header="PowerPoint" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
                     <MenuItem Name="MI_Zeichnung" Header="Zeichnen" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
                     <MenuItem Name="MI_Media" Header="MediaPlayer (Windows)" IsCheckable="True" Click="MenuItem_Click"></MenuItem>
-                    <Separator></Separator>
-                    <MenuItem Header="Unreal-Avateering"></MenuItem>
                 </MenuItem>
             </Menu>
         </DockPanel>
