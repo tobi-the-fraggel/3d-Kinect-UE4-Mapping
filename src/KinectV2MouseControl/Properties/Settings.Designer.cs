@@ -154,5 +154,17 @@ namespace Mousenect.Properties {
                 this["NotifyInfo"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NotifySuccess {
+            get {
+                return ((string)(this["NotifySuccess"]));
+            }
+            set {
+                this["NotifySuccess"] = value;
+            }
+        }
     }
 }

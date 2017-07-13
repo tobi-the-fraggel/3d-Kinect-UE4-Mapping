@@ -19,8 +19,7 @@ namespace Mousenect
 
             _notifier = new Notifier(cfg =>
                 {
-                    cfg.PositionProvider = new WindowPositionProvider(
-                    parentWindow: Application.Current.MainWindow,
+                    cfg.PositionProvider = new PrimaryScreenPositionProvider(
                     corner: Corner.BottomRight,
                     offsetX: 25,
                     offsetY: 100);
@@ -40,9 +39,29 @@ namespace Mousenect
 
         private void ToastPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName == "NotifyInfo")
+            if(e.PropertyName == "NotifyInfo" && Properties.Settings.Default.NotifyInfo != "")
             {
                 ShowInformation(Properties.Settings.Default.NotifyInfo);
+                Properties.Settings.Default.NotifyInfo = "";
+                Properties.Settings.Default.Save();
+            }
+            else if (e.PropertyName == "NotifyWarning" && Properties.Settings.Default.NotifyWarning != "")
+            {
+                ShowWarning(Properties.Settings.Default.NotifyWarning);
+                Properties.Settings.Default.NotifyWarning = "";
+                Properties.Settings.Default.Save();
+            }
+            else if (e.PropertyName == "NotifyError" && Properties.Settings.Default.NotifyError != "")
+            {
+                ShowError(Properties.Settings.Default.NotifyError);
+                Properties.Settings.Default.NotifyError = "";
+                Properties.Settings.Default.Save();
+            }
+            else if (e.PropertyName == "NotifySuccess" && Properties.Settings.Default.NotifySuccess != "")
+            {
+                ShowSuccess(Properties.Settings.Default.NotifySuccess);
+                Properties.Settings.Default.NotifySuccess = "";
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -74,6 +93,11 @@ namespace Mousenect
         internal void ClearMessages(string msg)
         {
             _notifier.ClearMessages(msg);
+        }
+
+        public void ShowWarning(string message)
+        {
+            _notifier.ShowWarning(message);
         }
 
         public void ShowWarning(string message, MessageOptions opts)

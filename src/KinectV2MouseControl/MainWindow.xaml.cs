@@ -36,6 +36,8 @@ namespace Mousenect
 
         //Objekt der Klasse KinectControl erzeugen
         KinectControl kinectCtrl = new KinectControl();
+        //Toast
+        ToastViewModel toast = new ToastViewModel();
 
         public MainWindow()
         {
@@ -324,6 +326,7 @@ namespace Mousenect
             Console.WriteLine(sfdname);
             // Save Bitmap to the Path
             (viewer.Image as WriteableBitmap).Save(sfdname);
+            Properties.Settings.Default.NotifySuccess = "Screenshot in " + sfdname + " gespeichert!";
         }
 
         private void btn_camera_Click(object sender, RoutedEventArgs e)
