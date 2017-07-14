@@ -25,7 +25,7 @@ namespace Mousenect
                     offsetY: 100);
 
                     cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                    notificationLifetime: TimeSpan.FromSeconds(6),
+                    notificationLifetime: TimeSpan.FromSeconds(5),
                     maximumNotificationCount: MaximumNotificationCount.FromCount(6));
 
                     cfg.Dispatcher = Application.Current.Dispatcher;
