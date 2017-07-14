@@ -243,14 +243,14 @@ namespace Mousenect
         void UserReporter_BodyEntered(object sender, PlayersControllerEventArgs e)
         {
             // A new user has entered the scene.
-            Console.WriteLine("Neuer Body in der Szene");
+            Properties.Settings.Default.NotifyInfo = "Neuer Person in der Szene";
             viewer.Clear();
         }
 
         void UserReporter_BodyLeft(object sender, PlayersControllerEventArgs e)
         {
             // A user has left the scene.
-            Console.WriteLine("Body aus der Szene entfernt");
+            Properties.Settings.Default.NotifyInfo = "Eine Person hat die Szene verlassen";
             viewer.Clear();
             angle1.Clear();
             angle2.Clear();
