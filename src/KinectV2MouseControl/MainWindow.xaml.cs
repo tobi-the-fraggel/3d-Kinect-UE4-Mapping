@@ -62,6 +62,7 @@ namespace Mousenect
             }
         }
 
+        //Wird aufgerufen wenn eine Einstellung durch ein Oberflächenereignis geändert wird 
         private void MainWindow_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Programm")
