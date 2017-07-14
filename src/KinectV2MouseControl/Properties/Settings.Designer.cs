@@ -166,5 +166,17 @@ namespace Mousenect.Properties {
                 this["NotifySuccess"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowToast {
+            get {
+                return ((bool)(this["ShowToast"]));
+            }
+            set {
+                this["ShowToast"] = value;
+            }
+        }
     }
 }
