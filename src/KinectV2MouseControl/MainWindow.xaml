@@ -1,11 +1,11 @@
-﻿<Window x:Class="Mousenect.MainWindow"
+﻿<Window x:Class="ControlKinectCenter.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:controls="clr-namespace:LightBuzz.Vitruvius.Controls;assembly=LightBuzz.Vitruvius"
-        Title="Mousenect" Height="455.5" Width="900" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner"
+        Title="Control Kinect Center" Height="455.5" Width="900" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner"
         Closing="Window_Closing" Unloaded="Window_Unloaded" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>

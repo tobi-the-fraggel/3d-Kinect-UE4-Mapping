@@ -7,7 +7,7 @@ using LightBuzz.Vitruvius;
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace Mousenect
+namespace ControlKinectCenter
 {
     public class KinectControl
     {

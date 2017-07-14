@@ -6,7 +6,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Kinect;
 using System.Runtime.InteropServices;
 
-namespace Mousenect
+namespace ControlKinectCenter
 {
     /// <summary>
     /// Interaktionslogik für DrawingWindow.xaml

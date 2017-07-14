@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using System.IO;
 
-namespace Mousenect
+namespace ControlKinectCenter
 {
     public partial class MainWindow : Window
     {
@@ -192,8 +192,8 @@ namespace Mousenect
 
                     if (closest != null)
                     {
-                        if(showSkeleton)
-                        viewer.DrawBody(closest);
+                        if (showSkeleton)
+                            viewer.DrawBody(closest);
 
                         HL_State.Text = closest.HandLeftState.ToString();
                         if (closest.HandLeftState == HandState.Closed)

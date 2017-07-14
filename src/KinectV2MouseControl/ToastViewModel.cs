@@ -7,7 +7,7 @@ using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
 using ToastNotifications.Position;
 
-namespace Mousenect
+namespace ControlKinectCenter
 {
     public class ToastViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace Mousenect
+namespace ControlKinectCenter
 {
     /// <summary>
     /// Interaktionslogik für SettingsWindow.xaml
