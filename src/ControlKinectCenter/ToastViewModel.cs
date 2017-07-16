@@ -39,29 +39,32 @@ namespace ControlKinectCenter
 
         private void ToastPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName == "NotifyInfo" && Properties.Settings.Default.NotifyInfo != "")
+            if (Properties.Settings.Default.ShowToast)
             {
-                ShowInformation(Properties.Settings.Default.NotifyInfo);
-                Properties.Settings.Default.NotifyInfo = "";
-                Properties.Settings.Default.Save();
-            }
-            else if (e.PropertyName == "NotifyWarning" && Properties.Settings.Default.NotifyWarning != "")
-            {
-                ShowWarning(Properties.Settings.Default.NotifyWarning);
-                Properties.Settings.Default.NotifyWarning = "";
-                Properties.Settings.Default.Save();
-            }
-            else if (e.PropertyName == "NotifyError" && Properties.Settings.Default.NotifyError != "")
-            {
-                ShowError(Properties.Settings.Default.NotifyError);
-                Properties.Settings.Default.NotifyError = "";
-                Properties.Settings.Default.Save();
-            }
-            else if (e.PropertyName == "NotifySuccess" && Properties.Settings.Default.NotifySuccess != "")
-            {
-                ShowSuccess(Properties.Settings.Default.NotifySuccess);
-                Properties.Settings.Default.NotifySuccess = "";
-                Properties.Settings.Default.Save();
+                if (e.PropertyName == "NotifyInfo" && Properties.Settings.Default.NotifyInfo != "")
+                {
+                    ShowInformation(Properties.Settings.Default.NotifyInfo);
+                    Properties.Settings.Default.NotifyInfo = "";
+                    Properties.Settings.Default.Save();
+                }
+                else if (e.PropertyName == "NotifyWarning" && Properties.Settings.Default.NotifyWarning != "")
+                {
+                    ShowWarning(Properties.Settings.Default.NotifyWarning);
+                    Properties.Settings.Default.NotifyWarning = "";
+                    Properties.Settings.Default.Save();
+                }
+                else if (e.PropertyName == "NotifyError" && Properties.Settings.Default.NotifyError != "")
+                {
+                    ShowError(Properties.Settings.Default.NotifyError);
+                    Properties.Settings.Default.NotifyError = "";
+                    Properties.Settings.Default.Save();
+                }
+                else if (e.PropertyName == "NotifySuccess" && Properties.Settings.Default.NotifySuccess != "")
+                {
+                    ShowSuccess(Properties.Settings.Default.NotifySuccess);
+                    Properties.Settings.Default.NotifySuccess = "";
+                    Properties.Settings.Default.Save();
+                }
             }
         }
 
