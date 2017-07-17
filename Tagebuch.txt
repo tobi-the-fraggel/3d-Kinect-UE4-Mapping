@@ -49,3 +49,10 @@ Fazit	Bereits ab den ersten Programmierschritten Konsolenausgaben einfügen und w
 - Testen und Fehlerbehebung
 - Feinschliff in der GUI
 - Abschluss der Implementation von Anzeige des Skeletts und der Winkel
+- Implementierung von Benachrichtigungen mittels Libary
+
+14.07.2017
+- Benachrichtigungen werden nun über geänderte Properties erzeugt
+- Umbenennung zu ControlKinectCenter
+- Kommentare hinzugefügt und überarbeitet
+

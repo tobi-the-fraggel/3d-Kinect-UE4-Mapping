@@ -17,7 +17,9 @@ namespace ControlKinectCenter
         {
             MouseSensitivity.Value = Properties.Settings.Default.MouseSensitivity;
             chkNoClick.IsChecked = !Properties.Settings.Default.DoClick;
+            chkNoNotify.IsChecked = !Properties.Settings.Default.ShowToast;
             CursorSmoothing.Value = Properties.Settings.Default.CursorSmoothing;
+
         }
 
         private void MouseSensitivity_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -36,6 +38,7 @@ namespace ControlKinectCenter
             MouseSensitivity.Value = KinectControl.MOUSE_SENSITIVITY;
             CursorSmoothing.Value = KinectControl.CURSOR_SMOOTHING;
             chkNoClick.IsChecked = !KinectControl.DO_CLICK;
+            chkNoNotify.IsChecked = false;
             Console.WriteLine("Werte auf Standard zurückgesetzt");
         }
 
@@ -74,6 +77,20 @@ namespace ControlKinectCenter
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             this.Close();
+        }
+
+        private void chkNoNotify_Checked(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Keine Benachrichtigungen geklickt");
+            Properties.Settings.Default.ShowToast = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void chkNoNotify_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Benachrichtigungen geklickt");
+            Properties.Settings.Default.ShowToast = true;
+            Properties.Settings.Default.Save();
         }
     }
 }

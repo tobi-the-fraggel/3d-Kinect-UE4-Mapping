@@ -5,23 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ControlKinectCenter"
         mc:Ignorable="d"
-        Title="Einstellungen" Height="286.718" Width="300"
+        Title="Einstellungen" Height="314.985" Width="300"
         Loaded="Window_Loaded" ResizeMode="NoResize">
     <Grid Margin="10">
         <DockPanel>
             <Grid DockPanel.Dock="Top">
         <Slider x:Name="MouseSensitivity" Margin="12,35,8,0" VerticalAlignment="Top" Height="26" Maximum="6" ValueChanged="MouseSensitivity_ValueChanged" Minimum="1" Value="3.5" Grid.ColumnSpan="2"/>
         <Label Content="Maus-Empfindlichkeit" Margin="12,5,8,0" VerticalAlignment="Top" Height="26" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="txtMouseSensitivity" Height="23" Margin="0,7,17,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="3.5" FontSize="15" TextAlignment="Right" HorizontalAlignment="Right" Grid.Column="1"/>
-        <CheckBox x:Name="chkNoClick" Content="Keine Mausklicks" HorizontalAlignment="Left" Margin="12,125,0,0" Height="16" VerticalAlignment="Top" Checked="chkNoClick_Checked" Unchecked="chkNoClick_Unchecked" Grid.ColumnSpan="2"/>
-        <Slider x:Name="CursorSmoothing" Margin="12,94,8,0" VerticalAlignment="Top" Height="26" Maximum="0.95" SmallChange="0.01" Value="0.2" ValueChanged="CursorSmoothing_ValueChanged" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="txtMouseSensitivity" Height="23" Margin="0,7,17,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="3.5" FontSize="15" TextAlignment="Right" HorizontalAlignment="Right" Grid.Column="1"/>
+                <Slider x:Name="CursorSmoothing" Margin="12,94,8,0" VerticalAlignment="Top" Height="26" Maximum="0.95" SmallChange="0.01" Value="0.2" ValueChanged="CursorSmoothing_ValueChanged" Grid.ColumnSpan="2"/>
         <Label Content="Maus-Glättung" Margin="12,61,116,0" VerticalAlignment="Top" Height="26" Grid.ColumnSpan="2"/>
         <TextBox x:Name="txtCursorSmoothing" Height="23" Margin="0,66,19,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="0.2" FontSize="15" TextAlignment="Right" HorizontalAlignment="Right" Grid.Column="1"/>
             </Grid>
-            <StackPanel DockPanel.Dock="Bottom" Grid.Row="1" Height="70">
+        <StackPanel Height="140" Margin="10,10,10,0">
+            <StackPanel Orientation="Vertical" Height="40" Grid.Row="1">
+                <CheckBox x:Name="chkNoClick" Content="Keine Mausklicks" HorizontalAlignment="Left" Height="16" VerticalAlignment="Top" Checked="chkNoClick_Checked" Unchecked="chkNoClick_Unchecked" Grid.ColumnSpan="2"/>
+                <CheckBox x:Name="chkNoNotify" Content="Keine Benachrichtigungen" HorizontalAlignment="Left" Height="16" Grid.ColumnSpan="2" Checked="chkNoNotify_Checked" Unchecked="chkNoNotify_Unchecked"></CheckBox>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Bottom" Grid.Row="1" Height="80">
             <Button x:Name="btnDefault" Content="Auf Standard zurücksetzen" Click="btnDefault_Click" Height="35" />
-            <Button x:Name="btn_close" Content="Schließen" Click="btn_close_Click" Margin="0,0,0,0.4" Height="35" />
+            <Button x:Name="btn_close" Content="Schließen" Click="btn_close_Click" Height="35" />
         </StackPanel>
+            </StackPanel>
         </DockPanel>
     </Grid>
 </Window>
