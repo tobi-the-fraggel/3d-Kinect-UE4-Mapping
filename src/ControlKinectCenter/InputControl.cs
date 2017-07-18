@@ -42,6 +42,11 @@ namespace ControlKinectCenter
             WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.MEDIA_PLAY_PAUSE);
         }
 
+        public static void MediaMute()
+        {
+            WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.VOLUME_MUTE);
+        }
+
         public static void MediaPrev()
         {
             WindowsInput.InputSimulator.SimulateKeyPress(VirtualKeyCode.MEDIA_PREV_TRACK);

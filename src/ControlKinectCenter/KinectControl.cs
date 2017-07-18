@@ -16,14 +16,6 @@ namespace ControlKinectCenter
         /// </summary>
         public KinectSensor sensor;
         /// <summary>
-        /// Timer für Gesten-Pausen
-        /// </summary>
-        DispatcherTimer timer = new DispatcherTimer();
-        /// <summary>
-        /// Vitruvius erzeugter GestureController
-        /// </summary>
-        GestureController gestureController;
-        /// <summary>
         /// Vitruvius Erzeugter MultiSourceFrameReader
         /// </summary>
         MultiSourceFrameReader _reader;
@@ -58,9 +50,8 @@ namespace ControlKinectCenter
         /// </summary>
         bool wasLeftGrip = false;
         /// <summary>
-        /// Verzögerung zwischen den Gesten
+        /// Zählervariablen für die Verzögerung
         /// </summary>
-        bool wasGesture = false;
         bool wasDoubleLasso = false;
         int GestureCount = 0;
         int DoubleLassoCount = 0;
@@ -76,6 +67,7 @@ namespace ControlKinectCenter
         /// Maus = 1
         /// Powerpoint = 2
         /// Zeichnen = 3
+        /// MediaPlayer = 4
         /// </summary>
         public byte Programm = 1;
         DrawingWindow drawing;
@@ -92,11 +84,6 @@ namespace ControlKinectCenter
             //PropertyChanged Event verknüpfen
             Properties.Settings.Default.PropertyChanged += KinectControl_PropertyChanged;
 
-            #region Timer-Setup
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
-            timer.Tick += new EventHandler(Timer_Tick);
-            #endregion
-
             //Default für Programm (Maus)
             Programm = Properties.Settings.Default.Programm;
 
@@ -106,8 +93,6 @@ namespace ControlKinectCenter
             //Vitruvius
             _reader = sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Body);
             _reader.MultiSourceFrameArrived += Reader_MultiSourceFrameArrived;
-            gestureController = new GestureController();
-            gestureController.GestureRecognized += GestureController_GestureRecognized;
         }
 
         private void KinectControl_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -151,49 +136,6 @@ namespace ControlKinectCenter
             }
         }
 
-        #region Timer-Tick's
-        /// <summary>
-        /// Nach einer Sekunde ausgelöst um mehrere Gesten-Auslöser zu vermeiden
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            Console.WriteLine("Gesten-Pause vorbei");
-            wasGesture = false;
-            wasDoubleLasso = false;
-            timer.Stop();
-        }
-        #endregion
-
-        /// <summary>
-        /// Event wird bei erkannter Geste ausgelöst
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">enthält die erkannte Geste</param>
-        void GestureController_GestureRecognized(object sender, GestureEventArgs e)
-        {
-            //Geste nur nach einer Sekunde zur vorherigen auswerten
-            if (!wasGesture)
-            {
-                wasGesture = true;
-                timer.Start();
-
-                if(Programm == 4) //Media Player Gesten
-                {
-                    if (e.GestureType == GestureType.SwipeLeft)
-                        InputControl.MediaPrev();
-                    else if (e.GestureType == GestureType.SwipeRight)
-                        InputControl.MediaNext();
-                    else if (e.GestureType == GestureType.JoinedHands)
-                        InputControl.MediaPlayPause();
-                }
-
-                //Debugging Konsolen-Ausgabe
-                Console.WriteLine("Geste wurde erkannt: " + e.GestureType.ToString());
-            }
-        }
-
         /// <summary>
         /// Event wird bei jedem eingehenden Frame ausgelöst
         /// </summary>
@@ -213,12 +155,9 @@ namespace ControlKinectCenter
                         //Den Closest Body wählen
                         Body body = frame.Bodies().Closest();
 
-                        // get closest tracked body only, notice there's a break below.
+                        // get closest tracked body only
                         if (body != null)
                         {
-                            //Gesture-Controller das neuste Frame liefern
-                            gestureController.Update(body);
-
                             //2x Lasso zum beenden der Anwendung muss 30 Frames gehalten werden
                             if (body.HandLeftState == HandState.Lasso && body.HandRightState == HandState.Lasso)
                             {
@@ -346,6 +285,65 @@ namespace ControlKinectCenter
                                     GestureCount = 0;
                                 }
 
+                            }
+                            //Media-Player-Steuerung
+                            else if(Programm == 4)
+                            {
+                                if (handRight.Z - spineBase.Z < -0.15f) // rechte hand oben
+                                {
+                                    if (body.HandRightState == HandState.Open) //rechte hand offen
+                                    {
+                                        GestureCount++;
+                                        if (GestureCount > 30)
+                                        {
+                                            InputControl.MediaPlayPause();
+                                            Console.WriteLine("Mediaplayer: Play/Pause");
+                                            GestureCount = 0;
+                                        }
+                                    }
+                                    else if(body.HandRightState == HandState.Lasso) //rechte hand lasso
+                                    {
+                                        GestureCount++;
+                                        if (GestureCount > 30)
+                                        {
+                                            InputControl.MediaNext();
+                                            Console.WriteLine("Mediaplayer: Next");
+                                            GestureCount = 0;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        GestureCount = 0;
+                                    }
+                                }
+
+                                if (handLeft.Z - spineBase.Z < -0.15f) // linke hand oben
+                                {
+                                    if (body.HandLeftState == HandState.Open) //linke hand offen
+                                    {
+                                        GestureCount++;
+                                        if (GestureCount > 30)
+                                        {
+                                            InputControl.MediaMute();
+                                            Console.WriteLine("Mediaplayer: Mute");
+                                            GestureCount = 0;
+                                        }
+                                    }
+                                    else if (body.HandLeftState == HandState.Lasso) //rechte hand lasso
+                                    {
+                                        GestureCount++;
+                                        if (GestureCount > 30)
+                                        {
+                                            InputControl.MediaPrev();
+                                            Console.WriteLine("Mediaplayer: Prev");
+                                            GestureCount = 0;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        GestureCount = 0;
+                                    }
+                                }
                             }
                         }
                     }
