@@ -40,4 +40,4 @@ Just fork the repo and create something of your own. This directly leads me to a
 I wish I could offer this code completely open source **but** I can't as we have used (and included) proprietary libraries. So whatever you want to do with this code, you need to at least follow the copyright notes of [Microsofts Kinect SDK](https://www.microsoft.com/en-us/download/details.aspx?id=44561) and [Lightbuzz](https://github.com/LightBuzz/Kinect-Drawing) "Kinect-Drawing" application. The latter is published under the [MIT-License](https://github.com/LightBuzz/Kinect-Drawing/blob/master/LICENSE).
 
 ### Final Notes
-Big shoutout goes to [Jingzhou Chen](https://github.com/TangoChen/KinectV2MouseControl). His repository gave us a first glimpse of Kinect and we used it as an entry point for our own development.
+Big shoutout goes to [TangoChen](https://github.com/TangoChen/KinectV2MouseControl). His repository gave us a first glimpse of Kinect and we used it as an entry point for our own development.
