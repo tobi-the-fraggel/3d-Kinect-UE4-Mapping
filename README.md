@@ -19,14 +19,6 @@ Then simply open the program.
 
 The running control center presents a green button. If you click on it "Kinect Control" is activated and the button color turns red to indicate that. Now you can use your right arm to move the mouse across the screen. To deactivate just click the same button again. During "Kinect Control" a mouse click can be executed by simply presenting your left hand opened up to the camera and then closing it (making a fist). The process of your open left hand switching to the closed position is what the program translates as 'doClick'.
 
-### Compilation Hints
-  - The libraries named below need to be referenced in C# before compiling. I've linked to source but the .dll's can an be found in */src/ControlKinectCenter/lib*
-    - [ToastNotifications.dll](https://github.com/raflop/ToastNotifications) *(both Toastnotifications libraries can be installed via 'nuget')*
-    - [ToastNotifications.Messages.dll](https://github.com/raflop/ToastNotifications)
-    - [Lightbuzz.Vitruvius.dll](https://github.com/LightBuzz/)
-    - [InputSimulator.dll](https://inputsimulator.codeplex.com/)
-
-
 ##### Other possible gestures or postures are
   - **Double Lasso** = closes the whole program
   - **Media Player**
@@ -39,6 +31,14 @@ The running control center presents a green button. If you click on it "Kinect C
     - **Left Hand Open** = Arrow Left (usually *previous slide*)
 
 *A 'lasso' is the 'Victory Sign'. So you have a fist and then raise just your index and middle finger. A double lasso is when you do present it with both hands.*
+
+### Compilation Hints
+  - The libraries named below need to be referenced in C# before compiling. I've linked to source but the .dll's can an be found in */src/ControlKinectCenter/lib*
+    - [ToastNotifications.dll](https://github.com/raflop/ToastNotifications) *(both Toastnotifications libraries can be installed via 'nuget')*
+    - [ToastNotifications.Messages.dll](https://github.com/raflop/ToastNotifications)
+    - [Lightbuzz.Vitruvius.dll](https://github.com/LightBuzz/)
+    - [InputSimulator.dll](https://inputsimulator.codeplex.com/)
+
 
 ### Development?
 Do you want to contribute? Great!
